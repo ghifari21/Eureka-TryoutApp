@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "581018519064",
+    "firebase_url": "https://tryoutapp-d3963-default-rtdb.firebaseio.com",
+    "project_id": "tryoutapp-d3963",
+    "storage_bucket": "tryoutapp-d3963.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581018519064:android:ab35c4146a83c6031aa56d",
+        "android_client_info": {
+          "package_name": "com.gosty.tryoutapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581018519064-5lr1tnubp67gsmg04d0n6b09e4lslvhh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gosty.tryoutapp",
+            "certificate_hash": "4079c6575de78f8b726140f58f35d59ceaba0399"
+          }
+        },
+        {
+          "client_id": "581018519064-ea77aji2es0pg2ned3si4ja5kva89log.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gosty.tryoutapp",
+            "certificate_hash": "b0da7d243644cc6d72ba8e093f59d3630188c943"
+          }
+        },
+        {
+          "client_id": "581018519064-ne12ftklmbnb252ll3bb54tu8o353fek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpena0T1KbpHKOEY6fCjD2tYV_kJg84Cw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581018519064-de65itantu2rjeqoop6c45d66i8q7689.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
