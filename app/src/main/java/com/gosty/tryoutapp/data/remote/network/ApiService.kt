@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("/tryout/numeration")
-    fun getAllNumerationTryouts(): NumerationResponse
+    suspend fun getAllNumerationTryouts(): NumerationResponse?
 }

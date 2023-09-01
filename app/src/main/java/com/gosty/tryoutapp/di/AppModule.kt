@@ -4,6 +4,8 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.database.FirebaseDatabase
 import com.gosty.tryoutapp.BuildConfig
 import com.gosty.tryoutapp.data.remote.network.ApiService
+import com.gosty.tryoutapp.data.repositories.NumerationRepository
+import com.gosty.tryoutapp.data.repositories.NumerationRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,4 +55,11 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFirebaseCrashlytics(): FirebaseCrashlytics = FirebaseCrashlytics.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideNumerationRepository(
+        apiService: ApiService,
+        crashlytics: FirebaseCrashlytics
+    ): NumerationRepository = NumerationRepositoryImpl(apiService, crashlytics)
 }
