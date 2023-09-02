@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TryoutApp</string>
+    <string name="total_test">Total test kamu :</string>
+    <string name="nilai_rata_rata">Nilai rata-rata : </string>
+    <string name="hasil_hijau">Mantap! Pertahankan yah</string>
+    <string name="hasil_kuning">Lumayan, tingkatkan lagi yah</string>
+    <string name="hasil_merah">Gapapa, ayo latihan terus</string>
+    <string name="logout">Logout</string>
+    <string name="error_state_title_profile">Yah error nih :(</string>
+    <string name="error_state_subtitle_profile">Periksa koneksi internetmu atau kembali ke halaman sebelumnya dan coba lagi. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
 </resources>

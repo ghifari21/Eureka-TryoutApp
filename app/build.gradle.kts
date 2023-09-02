@@ -96,6 +96,9 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.4.1")
     implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    //circular image view
+    implementation ("com.mikhaellopez:circularimageview:4.3.1")
 }
 
 kapt {
