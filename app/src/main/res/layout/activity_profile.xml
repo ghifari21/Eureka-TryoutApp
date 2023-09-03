@@ -22,7 +22,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:background="@drawable/shape_bg_rounded_corner_profile_first_section_22_full_radius"
+            android:background="@drawable/shape_bg_rounded_corner_profile_first_section_20_full_radius"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -68,7 +68,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:padding="20dp"
-            android:background="@drawable/shape_bg_rounded_corner_profile_second_section_22_full_radius"
+            android:background="@drawable/shape_bg_rounded_corner_profile_second_section_20_full_radius"
             app:layout_constraintTop_toBottomOf="@+id/firstSection"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -122,7 +122,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="50dp"
-                android:background="@drawable/shape_bg_rounded_corner_profile_indicator_section_12_ful_radius">
+                android:background="@drawable/shape_bg_rounded_corner_profile_indicator_section_10_ful_radius">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
