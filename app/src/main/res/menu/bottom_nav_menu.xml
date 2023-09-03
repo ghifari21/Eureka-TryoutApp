@@ -3,13 +3,13 @@
     <item
         android:id="@+id/bnbHomeIcon"
         android:title="Home"
-        android:icon="@drawable/icon_grey_bottom_nav_bar_home"/>
+        android:icon="@drawable/icon_gray_bottom_nav_bar_home"/>
     <item
         android:id="@+id/bnbScoreIcon"
         android:title="Score"
-        android:icon="@drawable/icon_grey_bottom_nav_bar_score"/>
+        android:icon="@drawable/icon_gray_bottom_nav_bar_score"/>
     <item
         android:id="@+id/bnbProfileIcon"
         android:title="Profile"
-        android:icon="@drawable/icon_grey_bottom_nav_bar_profile"/>
+        android:icon="@drawable/icon_gray_bottom_nav_bar_profile"/>
 </menu>
