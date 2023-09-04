@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="font_14_bold_white">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="font_12_normal_white">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="font_12_normal_dark_blue_180B3F">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/dark_blue_180B3F</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="font_14_normal_dark_blue_180B3F">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/dark_blue_180B3F</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="font_24_bold_dark_blue_180B3F">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/dark_blue_180B3F</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="font_36_bold_green_29823B">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/green_29823B</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="font_14_bold_red_DC2020">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/red_DC2020</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

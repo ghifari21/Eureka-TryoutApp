@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // Circle Image
     implementation("de.hdodenhof:circleimageview:3.1.0")
@@ -96,6 +96,9 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.4.1")
     implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    //circular image view
+    implementation ("com.mikhaellopez:circularimageview:4.3.1")
 }
 
 kapt {

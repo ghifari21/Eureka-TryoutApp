@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="183dp"
+        android:id="@+id/ivShimmer1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/shape_bg_shimmer_rounded_corner_profile_grary_20_full_radius"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="277dp"
+        android:id="@+id/ivShimmer2"
+        app:layout_constraintTop_toBottomOf="@id/ivShimmer1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/shape_bg_shimmer_rounded_corner_profile_grary_20_full_radius"
+        android:layout_marginTop="16dp"/>
+    
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toBottomOf="@id/ivShimmer2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/shape_bg_shimmer_rounded_corner_profile_grary_20_full_radius"
+        />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>
