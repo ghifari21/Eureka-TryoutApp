@@ -7,5 +7,7 @@
     <color name="green_29823B">#29823B</color>
     <color name="yellow_E9A100">#E9A100</color>
     <color name="red_DC2020">#DC2020</color>
+    <color name="light_blue_38A4E1">#FF38A4E1</color>
+    <color name="dark_gray_8B929C">#FF8B929C</color>
     <color name="shimmer">#E6E6E6</color>
 </resources>
