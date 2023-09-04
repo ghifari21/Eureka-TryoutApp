@@ -12,6 +12,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/shape_bg_shimmer_rounded_corner_score_item_gray_12_full_radius"/>
+        android:background="@drawable/shape_bg_shimmer_rounded_corner_gray_12_full_radius"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

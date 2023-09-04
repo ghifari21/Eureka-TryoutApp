@@ -6,14 +6,12 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.ScoreModel
-import com.gosty.tryoutapp.databinding.ActivityScoreBinding
 import com.gosty.tryoutapp.databinding.ItemScoreBinding
-import com.gosty.tryoutapp.ui.score.explanation.ExplanationActivity
+import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
 
-class AdapterScore(private var myScoreList : List<ScoreModel>) : RecyclerView.Adapter<AdapterScore.MyViewHolder>() {
+class ScoreRecyclerViewAdapter(private var myScoreList : List<ScoreModel>) : RecyclerView.Adapter<ScoreRecyclerViewAdapter.MyViewHolder>() {
     inner class  MyViewHolder(val binding : ItemScoreBinding, val context : Context) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -34,7 +32,7 @@ class AdapterScore(private var myScoreList : List<ScoreModel>) : RecyclerView.Ad
         holder.binding.tvKosong.text = Resources.getSystem().getString(R.string.kosong) + currentItem.notAnswered.toString()
         holder.binding.tvNilai.text = currentItem.grade.toString()
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.context,ExplanationActivity::class.java)
+            val intent = Intent(holder.context, ExplanationActivity::class.java)
             intent.putExtra("score_id",currentItem.scoreId)
             it.context.startActivity(intent)
         }

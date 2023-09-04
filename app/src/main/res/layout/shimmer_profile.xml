@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/shape_bg_shimmer_rounded_corner_profile_gray_20_full_radius"/>
+        android:background="@drawable/shape_bg_shimmer_rounded_corner_gray_20_full_radius"/>
 
     <ImageView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@id/ivShimmer1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/shape_bg_shimmer_rounded_corner_profile_gray_20_full_radius"
+        android:background="@drawable/shape_bg_shimmer_rounded_corner_gray_20_full_radius"
         android:layout_marginTop="16dp"/>
     
     <ImageView
@@ -31,5 +31,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="54dp"
-        android:background="@drawable/shape_bg_shimmer_rounded_corner_profile_gray_20_full_radius" />
+        android:background="@drawable/shape_bg_shimmer_rounded_corner_gray_20_full_radius" />
 </androidx.constraintlayout.widget.ConstraintLayout>
