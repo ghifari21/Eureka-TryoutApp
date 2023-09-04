@@ -1,11 +1,15 @@
 package com.gosty.tryoutapp.di
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.database.FirebaseDatabase
 import com.gosty.tryoutapp.BuildConfig
 import com.gosty.tryoutapp.data.remote.network.ApiService
 import com.gosty.tryoutapp.data.repositories.NumerationRepository
 import com.gosty.tryoutapp.data.repositories.NumerationRepositoryImpl
+import com.gosty.tryoutapp.data.repositories.UserRepository
+import com.gosty.tryoutapp.data.repositories.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,8 +62,28 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideFirebaseAuthentication(): FirebaseAuth = FirebaseAuth.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideGoogleSignInOptions(): GoogleSignInOptions =
+        GoogleSignInOptions
+            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.CLIENT_ID)
+            .requestProfile()
+            .build()
+
+    @Provides
+    @Singleton
     fun provideNumerationRepository(
         apiService: ApiService,
         crashlytics: FirebaseCrashlytics
     ): NumerationRepository = NumerationRepositoryImpl(apiService, crashlytics)
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(
+        auth: FirebaseAuth,
+        crashlytics: FirebaseCrashlytics
+    ): UserRepository = UserRepositoryImpl(auth, crashlytics)
 }

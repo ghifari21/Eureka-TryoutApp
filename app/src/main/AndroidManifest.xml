@@ -16,6 +16,9 @@
         android:theme="@style/Theme.TryoutApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.score.explanation.ExplanationActivity"
             android:exported="false" />
         <activity
