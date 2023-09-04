@@ -22,12 +22,6 @@
             android:name=".ui.explanation.ExplanationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.score.ScoreActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.profile.ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
