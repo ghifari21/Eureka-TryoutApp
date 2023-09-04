@@ -19,7 +19,7 @@
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.score.explanation.ExplanationActivity"
+            android:name=".ui.explanation.ExplanationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.score.ScoreActivity"
