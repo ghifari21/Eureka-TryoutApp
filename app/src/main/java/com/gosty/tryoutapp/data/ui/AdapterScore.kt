@@ -1,6 +1,7 @@
 package com.gosty.tryoutapp.data.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.databinding.ItemScoreBinding
+import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
 
 class AdapterScore(private var myScoreList : List<ScoreModel>) : RecyclerView.Adapter<AdapterScore.MyViewHolder>() {
     inner class  MyViewHolder(val binding : ItemScoreBinding, val context : Context) : RecyclerView.ViewHolder(binding.root)
@@ -30,9 +32,9 @@ class AdapterScore(private var myScoreList : List<ScoreModel>) : RecyclerView.Ad
         holder.binding.tvKosong.text = Resources.getSystem().getString(R.string.kosong, currentItem.notAnswered.toString())
         holder.binding.tvNilai.text = currentItem.grade.toString()
         holder.itemView.setOnClickListener {
-//            val intent = Intent(holder.context,ExplanationActivity::class.java)
-//            intent.putExtra("score_id",currentItem.scoreId)
-//            it.context.startActivity(intent)
+            val intent = Intent(holder.context, ExplanationActivity::class.java)
+            intent.putExtra("score_id",currentItem.scoreId)
+            it.context.startActivity(intent)
         }
     }
 }
