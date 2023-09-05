@@ -30,4 +30,7 @@
     <string name="home">Home</string>
     <string name="score">Score</string>
     <string name="profile">Profile</string>
+    <string name="alert_dialog_title">Yakin nih mau logout ?</string>
+    <string name="positive_btn">Yakin</string>
+    <string name="negative_btn">Engga</string>
 </resources>
