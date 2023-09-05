@@ -36,4 +36,7 @@
     <string name="rule_content"><![CDATA[<ol type="1"><li>Pastikan kamu dalam kondisi fit dan jauh dari distraksi yang dapat mempengaruhi performa pengerjaan test ini.</li><li>Waktu pengerjaan test adalah 1 jam secara keseluruhan. Jika waktu habis, hanya jawaban yang sudah dipilih yang akan disimpan.</li><li>Dilarang untuk bekerjasama atau membantu orang lain dalam mengerjakan test ini.</li><li>Tidak boleh membuka layar lain pada perangkat elektronik yang digunakan selama test.</li><li>Dilarang mengambil dokumentasi saat test berlangsung, dalam bentuk apapun, termasuk foto, video, atau screenshot.</li><li>Tidak boleh mencari bantuan di internet saat mengerjakan test ini.</li><li>Jika sudah selesai, kamu akan diarahkan ke halaman score untuk melihat hasil test-mu disertai pembahasan.</li></ol>]]></string>
     <string name="problem_type">Ada 2 (dua) tipe soal nih</string>
     <string name="please_start">Silakan mulai kapanpun kamu siap. Jangan lupa doa dulu ya, good luck !</string>
+    <string name="alert_dialog_title">Yakin nih mau logout ?</string>
+    <string name="positive_btn">Yakin</string>
+    <string name="negative_btn">Engga</string>
 </resources>
