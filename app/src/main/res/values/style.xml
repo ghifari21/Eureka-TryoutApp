@@ -15,6 +15,11 @@
         <item name="android:textColor">@color/dark_blue_180B3F</item>
         <item name="android:textStyle">normal</item>
     </style>
+    <style name="font_12_normal_dark_gray_8B929C">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/dark_gray_8B929C</item>
+        <item name="android:textStyle">normal</item>
+    </style>
     <style name="font_14_normal_dark_blue_180B3F">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/dark_blue_180B3F</item>
@@ -34,6 +39,16 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/dark_gray_8B929C</item>
         <item name="android:textStyle">normal</item>
+    </style>
+    <style name="font_18_normal_dark_blue_180B3F">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/dark_blue_180B3F</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="font_20_bold_dark_blue_180B3F">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_blue_180B3F</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="font_24_bold_dark_blue_180B3F">
         <item name="android:textSize">24sp</item>
