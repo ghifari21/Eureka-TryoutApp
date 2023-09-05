@@ -42,7 +42,6 @@
     <string name="error_state_title_problem">Yah error nih :(</string>
     <string name="error_state_subtitle_problem">Periksa koneksi internetmu atau swipe dari atas ke bawah untuk me-refresh halaman. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
     <string name="title_activity_try_out_done">TryOutDoneActivity</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -88,4 +87,6 @@
 
     <string name="done_state_home_title">Bravo! kamu Telah Menyelesaikan test dengan Brilian</string>
     <string name="done_state_home_subtitle">Santai sejenak dan nikmati waktu istirahatmu, setelah itu lihat skormu yuk !</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -21,6 +21,10 @@
             android:label="@string/title_activity_try_out_done"
             android:theme="@style/Theme.TryoutApp" />
         <activity
+            android:name=".ui.tryout.problem.ProblemActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.tryout.choice.ChoiceActivity"
             android:exported="false" />
         <activity
