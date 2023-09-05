@@ -73,7 +73,7 @@
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginHorizontal="32dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
                 android:drawableLeft="@drawable/image_google_v_1"
                 android:text="@string/login_button"
