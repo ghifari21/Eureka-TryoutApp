@@ -10,17 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.databinding.FragmentExplanationBinding
 import com.gosty.tryoutapp.databinding.FragmentProfileBinding
 import com.gosty.tryoutapp.ui.auth.AuthActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding
+
+    @Inject
+    lateinit var auth : FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +34,8 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater,container,false)
         return binding?.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,11 +56,15 @@ class ProfileFragment : Fragment() {
         @since September 5th, 2023
      */
     private fun displayDataToView(){
-        val user = Firebase.auth.currentUser
+        val user = auth.currentUser
         if (user != null){
             binding?.let {
-                Glide.with(requireContext()).load(user.photoUrl).placeholder(R.drawable.image_profile_placeholder).into(
-                    it.civProfilePhoto)
+                Glide.with(requireContext())
+                    .load(user.photoUrl)
+                    .placeholder(R.drawable.image_profile_placeholder)
+                    .error(R.drawable.icon_black_broken_image)
+                    .centerCrop()
+                    .into(it.civProfilePhoto)
                 it.tvName.text = user.displayName
             }
         } else {

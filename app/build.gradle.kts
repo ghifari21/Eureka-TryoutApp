@@ -105,6 +105,9 @@ dependencies {
 
     //circular image view
     implementation ("com.mikhaellopez:circularimageview:4.3.1")
+
+    //swipe refresh layout
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 }
 
 kapt {

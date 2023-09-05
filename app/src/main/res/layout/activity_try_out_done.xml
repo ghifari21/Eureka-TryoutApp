@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:id="@+id/ivError"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvErrorTitle"
+            android:src="@drawable/image_done"/>
+
+        <TextView
+            android:layout_width="290sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvErrorTitle"
+            android:text="@string/done_state_home_title"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/ivError"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvErrorSubtitle"
+            style="@style/font_14_bold_dark_blue_180B3F"/>
+
+        <TextView
+            android:layout_width="290sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvErrorSubtitle"
+            android:text="@string/done_state_home_subtitle"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvErrorTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            android:textAlignment="center"
+            style="@style/font_12_normal_dark_blue_180B3F"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnViewScore"
+            app:layout_constraintTop_toBottomOf="@id/tvErrorSubtitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/font_14_bold_white"
+            android:textAllCaps="false"
+            android:layout_marginTop="32dp"
+            android:text="@string/lihat_skor"
+            android:background="@drawable/shape_bg_rounded_corner_tryout_done_dark_blue_12_full_radius"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
