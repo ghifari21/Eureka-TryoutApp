@@ -27,4 +27,7 @@
     <string name="auth_login_content">Login sekarang dan rasakan semangat try out melalui test Try Out inovatif di TryOutApp.</string>
     <string name="login_button">Login with Google</string>
     <string name="term_n_condition">Dengan mendaftar/masuk, kamu menyetujui syarat dan <font fgcolor="#38A4E1">ketentuan layanan</font> serta <font fgcolor="#38A4E1">kebijakan privasi</font>.</string>
+    <string name="home">Home</string>
+    <string name="score">Score</string>
+    <string name="profile">Profile</string>
 </resources>

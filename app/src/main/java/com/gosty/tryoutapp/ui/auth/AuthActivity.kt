@@ -50,6 +50,7 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
 
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
 

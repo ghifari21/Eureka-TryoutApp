@@ -22,6 +22,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        supportActionBar?.hide()
+
         GlobalScope.launch {
             delay(3000)
             if (auth.currentUser != null) {
