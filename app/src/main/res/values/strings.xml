@@ -84,9 +84,10 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="lihat_skor">Lihat Skor</string>
-
     <string name="done_state_home_title">Bravo! kamu Telah Menyelesaikan test dengan Brilian</string>
     <string name="done_state_home_subtitle">Santai sejenak dan nikmati waktu istirahatmu, setelah itu lihat skormu yuk !</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="number_of_problem">(%s/%s)</string>
+    <string name="submit">Submit</string>
 </resources>
