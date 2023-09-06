@@ -7,7 +7,7 @@
     android:paddingVertical="16dp"
     android:paddingHorizontal="20dp"
     android:layout_marginBottom="16dp"
-    android:background="@drawable/shape_bg_rounded_corner_score_item_white_stroke_gray_12_full_radius">
+    android:background="@drawable/shape_bg_rounded_corner_score_item_white_stroke_dark_blue_12_full_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

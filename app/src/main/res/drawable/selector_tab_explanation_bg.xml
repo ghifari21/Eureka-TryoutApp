@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true"
+        android:drawable="@drawable/shape_bg_rounded_corner_tab_selected_explanation_dark_blue_12_full_radius" />
+    <item android:drawable="@drawable/shape_bg_rounded_corner_tab_unselected_explanation_gray_12_full_radius" />
+</selector>

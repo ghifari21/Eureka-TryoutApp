@@ -20,6 +20,8 @@ class ProblemActivity : AppCompatActivity() {
         binding = ActivityProblemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         initView()
     }
 
