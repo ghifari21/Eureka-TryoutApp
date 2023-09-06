@@ -3,7 +3,7 @@ package com.gosty.tryoutapp.data.ui
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.gosty.tryoutapp.ui.tryout.problem.ProblemFragment
+import com.gosty.tryoutapp.ui.tryout.problem.singlechoice.SingleChoiceFragment
 
 class TabPagerProblemAdapter constructor(
     activity: AppCompatActivity,
@@ -12,6 +12,6 @@ class TabPagerProblemAdapter constructor(
     override fun getItemCount(): Int = len
 
     override fun createFragment(position: Int): Fragment {
-        return ProblemFragment()
+        return SingleChoiceFragment()
     }
 }

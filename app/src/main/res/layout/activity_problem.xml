@@ -39,11 +39,64 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_nav_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/shape_bg_rounded_corner_white_20_bottom_radius"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginVertical="12dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/selector_button_tryout_background"
+            android:importantForAccessibility="no"
+            android:src="@drawable/selector_button_tryout_drawable_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_submit"
+            style="@style/font_14_normal_dark_blue_180B3F"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginVertical="12dp"
+            android:background="@drawable/selector_button_tryout_background"
+            android:enabled="false"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/selector_button_text_tryout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_forward"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginVertical="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/selector_button_tryout_background"
+            android:src="@drawable/selector_button_tryout_drawable_forward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
