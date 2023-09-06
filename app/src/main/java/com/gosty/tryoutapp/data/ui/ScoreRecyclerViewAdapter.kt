@@ -1,4 +1,4 @@
-package com.gosty.tryoutapp.utils
+package com.gosty.tryoutapp.data.ui
 
 import android.content.Context
 import android.content.Intent
