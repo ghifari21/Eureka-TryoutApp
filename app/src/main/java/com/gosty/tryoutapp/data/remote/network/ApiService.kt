@@ -4,6 +4,6 @@ import com.gosty.tryoutapp.data.remote.responses.NumerationResponse
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("/tryout/numeration")
+    @GET("tryout/numeration")
     suspend fun getAllNumerationTryouts(): NumerationResponse?
 }
