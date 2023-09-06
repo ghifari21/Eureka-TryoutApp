@@ -13,6 +13,9 @@ data class QuestionItemResponse(
     @field:SerializedName("short_answer")
 	val shortAnswer: List<ShortAnswerItemResponse?>? = null,
 
+    @field:SerializedName("question_text")
+    val questionText: String? = null,
+
     @field:SerializedName("qt_id")
 	val qtId: Int? = null,
 

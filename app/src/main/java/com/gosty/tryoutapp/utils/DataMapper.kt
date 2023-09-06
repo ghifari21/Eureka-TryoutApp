@@ -50,6 +50,7 @@ object DataMapper {
                 mapShortAnswerItemResponseToShortAnswerModel(response)
             },
             qtId = input?.qtId,
+            questionText = input?.questionText,
             id = input?.id,
             discussion = input?.discussion?.map { response ->
                 mapDiscussionItemResponseToDiscussionModel(response)
