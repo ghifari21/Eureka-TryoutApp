@@ -3,15 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="18dp"
+    android:id="@+id/answerBox"
     android:paddingVertical="8dp"
     android:paddingHorizontal="12dp"
     android:background="@drawable/shape_bg_rounded_corner_answer_gray_8_full_radius"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <io.github.kexanie.library.MathView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvAnswer"
+        android:id="@+id/mvAnswer"
+        app:engine="MathJax"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

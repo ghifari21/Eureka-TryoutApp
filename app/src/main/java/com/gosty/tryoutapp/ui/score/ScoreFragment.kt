@@ -10,10 +10,12 @@ import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.databinding.FragmentProfileBinding
 import com.gosty.tryoutapp.databinding.FragmentScoreBinding
 import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
+import com.kennyc.view.MultiStateView
 
-class ScoreFragment : Fragment() {
+class ScoreFragment : Fragment(), MultiStateView.StateListener {
     private var _binding : FragmentScoreBinding? = null
     private val binding get() = _binding
+    private lateinit var multiStateView: MultiStateView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,10 +27,17 @@ class ScoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        multiStateView = binding?.msvScore!!
+        multiStateView.listener = this@ScoreFragment
+
+        multiStateView.viewState = MultiStateView.ViewState.EMPTY
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
+    override fun onStateChanged(viewState: MultiStateView.ViewState) {}
 }
