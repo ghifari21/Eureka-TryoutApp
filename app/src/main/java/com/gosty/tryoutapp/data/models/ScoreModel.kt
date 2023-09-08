@@ -16,6 +16,8 @@ data class ScoreModel(
     val notAnswered: Int? = null,
     val time: Long? = null,
     val grade: Double? = null,
+    val tryoutCategory: String? = null,
+    val answers: List<String>? = null,
 ) : Parcelable {
     @Exclude
     fun toMap(): Map<String, Any?> =
@@ -26,6 +28,8 @@ data class ScoreModel(
             "wrongAnswer" to wrongAnswer,
             "notAnswered" to notAnswered,
             "time" to time,
-            "grade" to grade
+            "grade" to grade,
+            "tryoutCategory" to tryoutCategory,
+            "answers" to answers
         )
 }

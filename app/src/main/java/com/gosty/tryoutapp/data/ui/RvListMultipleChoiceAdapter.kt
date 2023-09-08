@@ -1,10 +1,12 @@
 package com.gosty.tryoutapp.data.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.SelectionModel
 import com.gosty.tryoutapp.databinding.ItemMultipleChoiceBinding
@@ -27,7 +29,7 @@ class RvListMultipleChoiceAdapter :
         val selection = getItem(position)
         holder.bind(selection)
         holder.binding.root.setOnClickListener {
-            onItemClickCallback.onItemClicked(selection)
+            onItemClickCallback.onItemClicked(selection, position)
         }
     }
 
@@ -36,7 +38,19 @@ class RvListMultipleChoiceAdapter :
             binding.root
         ) {
         fun bind(selection: SelectionModel) {
-            binding.mvAnswer.text = selection.selectionText
+            if (selection.selectionText == "") {
+                binding.mvAnswer.visibility = View.GONE
+                binding.ivAnswer.visibility = View.VISIBLE
+                Glide.with(itemView.context)
+                    .load(selection.image)
+                    .placeholder(R.drawable.icon_black_image_placeholder)
+                    .error(R.drawable.icon_black_broken_image)
+                    .into(binding.ivAnswer)
+            } else {
+                binding.mvAnswer.text = selection.selectionText
+                binding.mvAnswer.visibility = View.VISIBLE
+                binding.ivAnswer.visibility = View.GONE
+            }
             if (selection.isAnswered) {
                 binding.container.setBackgroundResource(R.color.green_29823B)
             } else {
@@ -46,7 +60,7 @@ class RvListMultipleChoiceAdapter :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(selection: SelectionModel)
+        fun onItemClicked(selection: SelectionModel, position: Int)
     }
 
     companion object {

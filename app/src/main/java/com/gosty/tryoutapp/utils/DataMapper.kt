@@ -49,6 +49,7 @@ object DataMapper {
             shortAnswer = input?.shortAnswer?.map { response ->
                 mapShortAnswerItemResponseToShortAnswerModel(response)
             },
+            essayAnswer = input?.essayAnswer,
             qtId = input?.qtId,
             questionText = input?.questionText,
             id = input?.id,
@@ -56,7 +57,9 @@ object DataMapper {
                 mapDiscussionItemResponseToDiscussionModel(response)
             },
             tryoutId = input?.tryoutId,
-            questionId = input?.questionId
+            questionId = input?.questionId,
+            isEssay = input?.selection.isNullOrEmpty(),
+            isMultipleAnswer = input?.selectionAnswer?.size!! > 1
         )
 
     fun mapSelectionItemResponseToSelectionModel(input: SelectionItemResponse?): SelectionModel =
