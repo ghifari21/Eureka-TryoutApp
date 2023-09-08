@@ -2,9 +2,12 @@ package com.gosty.tryoutapp.data.ui
 
 import android.content.Context
 import android.content.res.Resources
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.SelectionModel
 import com.gosty.tryoutapp.databinding.ItemAnswerBinding
@@ -29,11 +32,9 @@ class RvExplanationAnswerAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = option[position]
         holder.binding.mvAnswer.text = currentItem?.selectionText
-        if (currentItem?.isAnswered!!){
-            holder.binding.answerBox.background = Resources.getSystem().getDrawable(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius,null)
-            if (selectionId != currentItem?.idSelection){
-                holder.binding.answerBox.background = Resources.getSystem().getDrawable(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius,null)
-            }
+
+        if (selectionId == currentItem?.idSelection){
+            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
         }
     }
 }

@@ -21,10 +21,12 @@
             android:padding="16dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvScore"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rvScore"
-                tools:listitem="@layout/item_score"/>
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="371dp"
+                tools:listitem="@layout/item_score" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

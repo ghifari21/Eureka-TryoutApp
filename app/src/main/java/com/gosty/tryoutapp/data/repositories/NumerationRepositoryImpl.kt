@@ -34,4 +34,24 @@ class NumerationRepositoryImpl @Inject constructor(
         }
         emitSource(data)
     }
+
+    override fun getAllNumerationTryoutsForExplanation(): LiveData<Result<List<SubjectModel>>> = liveData {
+        emit(Result.Loading)
+        val subjectList = MutableLiveData<List<SubjectModel>>()
+        try {
+            val response = apiService.getAllNumerationTryouts()
+            if (response != null) {
+                subjectList.value = response.data?.map {
+                    DataMapper.mapDataItemResponseToSubjectModel(it)
+                }
+            }
+        } catch (e: Exception) {
+            crashlytics.log(e.message.toString())
+            emit(Result.Error(e.message.toString()))
+        }
+        val data: LiveData<Result<List<SubjectModel>>> = subjectList.map {
+            Result.Success(it)
+        }
+        emitSource(data)
+    }
 }

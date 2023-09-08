@@ -2,10 +2,12 @@ package com.gosty.tryoutapp.ui.explanation
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.gosty.tryoutapp.data.models.QuestionModel
@@ -30,6 +32,8 @@ class ExplanationFragment : Fragment() {
 
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
 
+        Log.e("ANDIERROR",question?.tryoutId.toString())
+
         binding.mvQuestionExplanation.text = Html.fromHtml(question?.questionText, flags, { source ->
             Glide.with(requireActivity())
                 .load(source.replace(""""""", ""))
@@ -37,10 +41,38 @@ class ExplanationFragment : Fragment() {
             null
         }, null).toString()
 
-        binding.rvAnswer.apply {
-            adapter = RvExplanationAnswerAdapter(question?.selectionAnswer?.get(0)?.selectionId!!,question.selection!!, question.selection.size)
-            layoutManager = LinearLayoutManager(activity)
-            setHasFixedSize(true)
+        if (question?.tryoutId == 30) {
+            binding.etAnswer.isVisible = false
+            binding.rvAnswer.isVisible = true
+            binding.lblJawabanYangBenar.isVisible = false
+            binding.tvCorrectAnswer.isVisible = false
+            binding.rvAnswer.isEnabled = true
+
+            binding.rvAnswer.apply {
+                adapter = RvExplanationAnswerAdapter(question?.selectionAnswer?.get(0)?.selectionId!!,question.selection!!, question.selection.size)
+                layoutManager = LinearLayoutManager(activity)
+                setHasFixedSize(true)
+            }
+        } else {
+            if (question?.selection?.isEmpty() == true){
+                binding.etAnswer.isVisible = true
+                binding.rvAnswer.isEnabled = false
+                binding.lblJawabanYangBenar.isVisible = true
+                binding.tvCorrectAnswer.isVisible = true
+
+                binding.tvCorrectAnswer.text = question?.shortAnswer?.get(0)?.shortAnswerText
+            } else {
+                binding.rvAnswer.isEnabled = true
+                binding.etAnswer.isVisible = false
+                binding.lblJawabanYangBenar.isVisible = false
+                binding.tvCorrectAnswer.isVisible = false
+
+                binding.rvAnswer.apply {
+                    adapter = RvExplanationAnswerAdapter(question?.selectionAnswer?.get(0)?.selectionId!!,question.selection!!, question.selection.size)
+                    layoutManager = LinearLayoutManager(activity)
+                    setHasFixedSize(true)
+                }
+            }
         }
 
         binding.mvExplanation.text = Html.fromHtml(question?.discussion?.get(0)?.discussionText, flags, { source ->

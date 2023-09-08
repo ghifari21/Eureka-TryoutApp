@@ -14,6 +14,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -32,20 +33,11 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tvQuestionOrder"
-                            android:text="(7/10)"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            style="@style/font_14_bold_dark_blue_180B3F"/>
-
                         <io.github.kexanie.library.MathView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/mvQuestionExplanation"
-                            app:layout_constraintTop_toBottomOf="@id/tvQuestionOrder"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             android:layout_marginTop="6dp"
@@ -54,14 +46,13 @@
 
                         <ImageView
                             android:id="@+id/ivQuestionExplanation"
-                            android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:importantForAccessibility="no"
                             app:layout_constraintTop_toBottomOf="@id/mvQuestionExplanation"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             tools:src="@tools:sample/backgrounds/scenic" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -88,6 +79,17 @@
                             tools:itemCount="5"
                             tools:listitem="@layout/item_answer" />
 
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etAnswer"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:clickable="false"
+                            app:layout_constraintTop_toBottomOf="@id/rvAnswer"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"/>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,13 +106,32 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/lblExplanation"
+                            android:id="@+id/lblJawabanYangBenar"
+                            android:text="@string/jawaban_yang_benar"
+                            style="@style/font_14_normal_dark_blue_180B3F"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvCorrectAnswer"
+                            app:layout_constraintTop_toBottomOf="@id/lblJawabanYangBenar"
+                            style="@style/font_14_bold_green_29823B"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/lblExplanation"
+                            app:layout_constraintTop_toBottomOf="@+id/tvCorrectAnswer"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             android:text="@string/pembahasan"
                             style="@style/font_14_bold_dark_blue_180B3F"
-                            android:layout_marginTop="10dp"/>
+                            android:layout_marginTop="20dp"/>
 
                         <io.github.kexanie.library.MathView
                             android:layout_width="match_parent"
@@ -125,8 +146,8 @@
 
                         <ImageView
                             android:id="@+id/ivExplanation"
-                            android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:importantForAccessibility="no"
                             app:layout_constraintTop_toBottomOf="@id/mvExplanation"
