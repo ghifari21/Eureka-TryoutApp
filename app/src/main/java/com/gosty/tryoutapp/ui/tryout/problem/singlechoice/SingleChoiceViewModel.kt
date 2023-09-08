@@ -1,13 +1,14 @@
-package com.gosty.tryoutapp.ui.tryout.problem
+package com.gosty.tryoutapp.ui.tryout.problem.singlechoice
 
 import androidx.lifecycle.ViewModel
+import com.gosty.tryoutapp.data.models.AnswerModel
 import com.gosty.tryoutapp.data.repositories.NumerationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProblemViewModel @Inject constructor(
+class SingleChoiceViewModel @Inject constructor(
     private val numerationRepository: NumerationRepository
 ) : ViewModel() {
-    fun deleteAllUserAnswer() = numerationRepository.deleteAllUserAnswer()
+    fun postAnswer(answerModel: AnswerModel) = numerationRepository.postUserAnswer(answerModel)
 }
