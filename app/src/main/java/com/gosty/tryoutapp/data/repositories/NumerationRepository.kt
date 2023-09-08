@@ -8,9 +8,12 @@ import com.gosty.tryoutapp.utils.Result
 interface NumerationRepository {
     fun getAllNumerationTryouts(): LiveData<Result<List<SubjectModel>>>
 
+    fun getAllNumerationTryoutsForExplanation() : LiveData<Result<List<SubjectModel>>>
+
     fun postUserAnswer(answerModel: AnswerModel)
 
     fun getAllUserAnswer(): LiveData<Result<List<AnswerModel>>>
 
     fun deleteAllUserAnswer()
+
 }

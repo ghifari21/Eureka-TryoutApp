@@ -31,7 +31,23 @@ class ScoreFragment : Fragment(), MultiStateView.StateListener {
         multiStateView = binding?.msvScore!!
         multiStateView.listener = this@ScoreFragment
 
-        multiStateView.viewState = MultiStateView.ViewState.EMPTY
+        startActivity(
+            Intent(
+                activity,
+                ExplanationActivity::class.java
+            )
+        )
+
+//        multiStateView.viewState = MultiStateView.ViewState.EMPTY
+
+//        binding?.button?.setOnClickListener {
+//            startActivity(
+//                Intent(
+//                    activity,
+//                    ExplanationActivity::class.java
+//                )
+//            )
+//        }
     }
 
     override fun onDestroy() {

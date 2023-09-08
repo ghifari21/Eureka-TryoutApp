@@ -9,5 +9,5 @@ import javax.inject.Inject
 class ExplanationViewModel @Inject constructor(
     private val numerationRepository: NumerationRepository
 ) : ViewModel() {
-    fun getSubjectForExplanation() = numerationRepository.getAllNumerationTryouts()
+    fun getSubjectForExplanation() = numerationRepository.getAllNumerationTryoutsForExplanation()
 }
