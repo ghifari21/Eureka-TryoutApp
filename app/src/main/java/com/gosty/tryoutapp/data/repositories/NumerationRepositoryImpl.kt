@@ -64,6 +64,7 @@ class NumerationRepositoryImpl @Inject constructor(
             Result.Success(it)
         }
         emitSource(data)
+    }
 
     override fun postUserAnswer(answerModel: AnswerModel) {
         val userId = auth.currentUser?.uid
