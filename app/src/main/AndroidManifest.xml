@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TryoutApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.tryout_done.TryOutDoneActivity"
+            android:name=".ui.tryout_done.TryoutDoneActivity"
             android:exported="false"
             android:label="@string/title_activity_try_out_done"
             android:theme="@style/Theme.TryoutApp" />

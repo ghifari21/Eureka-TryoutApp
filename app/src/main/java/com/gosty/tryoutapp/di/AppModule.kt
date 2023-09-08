@@ -77,8 +77,10 @@ object AppModule {
     @Singleton
     fun provideNumerationRepository(
         apiService: ApiService,
+        db: FirebaseDatabase,
+        auth: FirebaseAuth,
         crashlytics: FirebaseCrashlytics
-    ): NumerationRepository = NumerationRepositoryImpl(apiService, crashlytics)
+    ): NumerationRepository = NumerationRepositoryImpl(apiService, db, auth, crashlytics)
 
     @Provides
     @Singleton

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.gosty.tryoutapp.data.models.QuestionModel
+import com.gosty.tryoutapp.ui.tryout.problem.essay.EssayFragment
+import com.gosty.tryoutapp.ui.tryout.problem.multiplechoice.MultipleChoiceFragment
 import com.gosty.tryoutapp.ui.tryout.problem.singlechoice.SingleChoiceFragment
 
 class TabPagerProblemAdapter constructor(
@@ -14,11 +16,28 @@ class TabPagerProblemAdapter constructor(
     override fun getItemCount(): Int = questions?.size!!
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = SingleChoiceFragment()
+        val fragment: Fragment = if (questions?.get(position)?.isEssay == true) {
+            EssayFragment()
+        } else {
+            if (questions?.get(position)?.isMultipleAnswer == true) {
+                MultipleChoiceFragment()
+            } else {
+                SingleChoiceFragment()
+            }
+        }
+
         val bundle = Bundle()
-        bundle.putParcelable(SingleChoiceFragment.EXTRA_DATA, questions?.get(position))
+        bundle.putParcelable(EXTRA_DATA, questions?.get(position))
+        bundle.putString(EXTRA_POS, (position + 1).toString())
+        bundle.putString(EXTRA_TOTAL, questions?.size.toString())
         fragment.arguments = bundle
 
         return fragment
+    }
+
+    companion object {
+        const val EXTRA_DATA = "extra"
+        const val EXTRA_POS = "position"
+        const val EXTRA_TOTAL = "total"
     }
 }
