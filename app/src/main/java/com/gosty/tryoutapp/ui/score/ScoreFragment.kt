@@ -1,31 +1,39 @@
 package com.gosty.tryoutapp.ui.score
 
+
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gosty.tryoutapp.R
-import com.gosty.tryoutapp.databinding.FragmentProfileBinding
+import com.gosty.tryoutapp.data.ui.RvListMultipleChoiceAdapter
+import com.gosty.tryoutapp.data.ui.ScoreRecyclerViewAdapter
 import com.gosty.tryoutapp.databinding.FragmentScoreBinding
+import com.gosty.tryoutapp.databinding.LayoutEmptyScoreBinding
 import com.gosty.tryoutapp.databinding.LayoutErrorScoreBinding
-import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
+import com.gosty.tryoutapp.ui.home.HomeFragment
+import com.gosty.tryoutapp.utils.Result
 import com.kennyc.view.MultiStateView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScoreFragment : Fragment(), MultiStateView.StateListener {
     private var _binding : FragmentScoreBinding? = null
-    private var _bindingStateError : LayoutErrorScoreBinding? = null
     private val binding get() = _binding
-    private val bindingStateError get() = _binding
     private lateinit var multiStateView: MultiStateView
+    private val viewModel: ScoreViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentScoreBinding.inflate(inflater,container,false)
-        _bindingStateError = LayoutErrorScoreBinding.inflate(inflater,container,false)
         return binding?.root
     }
 
@@ -35,16 +43,52 @@ class ScoreFragment : Fragment(), MultiStateView.StateListener {
         multiStateView = binding?.msvScore!!
         multiStateView.listener = this@ScoreFragment
 
-        multiStateView.viewState = MultiStateView.ViewState.EMPTY
+        init()
 
-//        binding?.button?.setOnClickListener {
-//            startActivity(
-//                Intent(
-//                    activity,
-//                    ExplanationActivity::class.java
-//                )
-//            )
-//        }
+        multiStateView.getView(MultiStateView.ViewState.ERROR)?.findViewById<Button>(R.id.btnRefreshScore)?.setOnClickListener {
+            init()
+        }
+
+        multiStateView.getView(MultiStateView.ViewState.EMPTY)?.findViewById<Button>(R.id.btnMulaiTestPertama)?.setOnClickListener {
+            startActivity(
+                Intent(
+                    activity,
+                    HomeFragment::class.java
+                )
+            )
+        }
+    }
+
+
+    /*
+    *   this method is to:
+    *   1. implement multi state view
+    *   2. implement view model
+    *   3. setup recycler view
+    *   @author Andi
+    *   @since September 11th, 2023
+    * */
+    private fun init(){
+        viewModel.getListScore().observe(requireActivity()) {
+            when(it){
+                is Result.Loading -> multiStateView.viewState = MultiStateView.ViewState.LOADING
+                is Result.Success -> {
+                    if (it.data.isEmpty()){
+                        multiStateView.viewState = MultiStateView.ViewState.EMPTY
+                    } else {
+                        binding?.rvScore?.apply {
+                            adapter = ScoreRecyclerViewAdapter(it.data)
+                            layoutManager = LinearLayoutManager(activity)
+                            setHasFixedSize(true)
+                        }
+                        multiStateView.viewState = MultiStateView.ViewState.CONTENT
+                    }
+                }
+                else -> {
+                    multiStateView.viewState = MultiStateView.ViewState.ERROR
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

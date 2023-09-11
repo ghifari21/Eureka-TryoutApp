@@ -20,7 +20,7 @@
     <string name="menit"> menit </string>
     <string name="detik"> detik</string>
     <string name="empty_state_title_score">Yah masih kosong nih :v</string>
-    <string name="empty_state_subtitle_score">Silakan kerjakan test nya dulu, nanti skor test mu akan muncul otomatis di sini, semangat ya !</string>
+    <string name="empty_state_subtitle_score">Silakan kerjakan test nya dulu, nanti skor test mu akan muncul otomatis di sini, yuk mulai test pertamamu !</string>
     <string name="error_state_title_score">Yah error nih :(</string>
     <string name="error_state_subtitle_score">Periksa koneksi internetmu atau klik tombol REFRESH untuk me-refresh halaman. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
     <string name="welcome_auth">Selamat datang di Try<font fgcolor="#E9A100">Out</font>App!</string>
@@ -48,6 +48,8 @@
     <string name="previous">Previous</string>
     <string name="refresh">Refresh</string>
     <string name="login">Login</string>
+    <string name="mulai_test_pertama">Mulai Test Pertamamu</string>
+    <string name="klik_item_score">Klik untuk melihat pembahasan . . .</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

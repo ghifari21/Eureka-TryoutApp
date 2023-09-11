@@ -10,6 +10,7 @@ import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.databinding.ItemScoreBinding
 import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
+import com.gosty.tryoutapp.utils.Converter
 
 class   ScoreRecyclerViewAdapter(private var myScoreList : List<ScoreModel>) : RecyclerView.Adapter<ScoreRecyclerViewAdapter.MyViewHolder>() {
     inner class  MyViewHolder(val binding : ItemScoreBinding, val context : Context) : RecyclerView.ViewHolder(binding.root)
@@ -25,15 +26,27 @@ class   ScoreRecyclerViewAdapter(private var myScoreList : List<ScoreModel>) : R
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = myScoreList[position]
-        holder.binding.tvTestKe.text = Resources.getSystem().getString(R.string.test_ke, (position + 1).toString())
-        holder.binding.tvDurasi.text = currentItem.totalTime.toString()
-        holder.binding.tvBenar.text = Resources.getSystem().getString(R.string.benar, currentItem.correctAnswer.toString())
-        holder.binding.tvSalah.text = Resources.getSystem().getString(R.string.salah, currentItem.wrongAnswer.toString())
-        holder.binding.tvKosong.text = Resources.getSystem().getString(R.string.kosong, currentItem.notAnswered.toString())
+
+        if (position == 0){
+            holder.binding.tvTestKe.text = "Test Terakhir"
+        } else if (position == myScoreList.size - 1){
+            holder.binding.tvTestKe.text = "Test Pertama"
+        } else {
+            holder.binding.tvTestKe.text = "Test Ke-${myScoreList.size - position}"
+        }
+
+        holder.binding.tvDurasi.text = Converter.milisecondToMinuteAndSecond(currentItem.totalTime!!)
+        holder.binding.tvBenar.text = "Benar : ${currentItem.correctAnswer}"
+        holder.binding.tvSalah.text = "Salah : ${currentItem.wrongAnswer}"
+        holder.binding.tvKosong.text = "Kosong : ${currentItem.notAnswered}"
         holder.binding.tvNilai.text = currentItem.score.toString()
+        holder.binding.tvTanggalPengerjaan.text = "Finished ${Converter.dateTime(currentItem.dateTime!!)}"
+        holder.binding.tvTryoutCategory.text = currentItem.tryoutCategory
+
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.context, ExplanationActivity::class.java)
-            intent.putExtra("score_id",currentItem.scoreId)
+            intent.putExtra(ExplanationActivity.EXTRA_QUESTION_TYPE,currentItem.tryoutCategory)
+            intent.putExtra(ExplanationActivity.EXTRA_ANSWER,currentItem)
             it.context.startActivity(intent)
         }
     }

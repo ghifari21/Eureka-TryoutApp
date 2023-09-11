@@ -70,6 +70,16 @@
         <item name="android:textColor">@color/green_29823B</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="font_36_bold_yellow_E9A100">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/yellow_E9A100</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="font_36_bold_red_DC2020">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/red_DC2020</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="font_32_bold_dark_blue_180B3F">
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/dark_blue_180B3F</item>

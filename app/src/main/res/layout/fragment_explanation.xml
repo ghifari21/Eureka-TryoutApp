@@ -79,15 +79,17 @@
                             tools:itemCount="5"
                             tools:listitem="@layout/item_answer" />
 
-                        <EditText
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/etAnswer"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:clickable="false"
+                            android:layout_height="100dp"
+                            android:id="@+id/tvAnswerEssay"
+                            style="@style/font_14_normal_dark_gray_8B929C"
                             app:layout_constraintTop_toBottomOf="@id/rvAnswer"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginBottom="24dp"
+                            android:padding="10dp"
+                            android:background="@drawable/shape_bg_rounded_corner_answer_white_stroke_dark_gray_12_full_radius"
                             app:layout_constraintRight_toRightOf="parent"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

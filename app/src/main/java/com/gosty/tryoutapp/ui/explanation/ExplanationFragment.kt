@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.gosty.tryoutapp.data.models.QuestionModel
+import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.data.ui.RvExplanationAnswerAdapter
 import com.gosty.tryoutapp.databinding.FragmentExplanationBinding
 
@@ -29,10 +30,9 @@ class ExplanationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val question = arguments?.getParcelable<QuestionModel>(EXTRA_DATA_EXPLANATION)
+        val score = arguments?.getParcelable<ScoreModel>(EXTRA_DATA_SCORE)
 
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
-
-        Log.e("ANDIERROR",question?.tryoutId.toString())
 
         binding.mvQuestionExplanation.text = Html.fromHtml(question?.questionText, flags, { source ->
             Glide.with(requireActivity())
@@ -42,33 +42,40 @@ class ExplanationFragment : Fragment() {
         }, null).toString()
 
         if (question?.tryoutId == 30) {
-            binding.etAnswer.isVisible = false
+            binding.tvAnswerEssay.isVisible = false
             binding.rvAnswer.isVisible = true
             binding.lblJawabanYangBenar.isVisible = false
             binding.tvCorrectAnswer.isVisible = false
             binding.rvAnswer.isEnabled = true
 
             binding.rvAnswer.apply {
-                adapter = RvExplanationAnswerAdapter(question?.selectionAnswer?.get(0)?.selectionId!!,question.selection!!, question.selection.size)
+                adapter = RvExplanationAnswerAdapter(question?.selectionAnswer,question.selection!!, score, question.selection.size, requireActivity())
                 layoutManager = LinearLayoutManager(activity)
                 setHasFixedSize(true)
             }
         } else {
             if (question?.selection?.isEmpty() == true){
-                binding.etAnswer.isVisible = true
+                binding.tvAnswerEssay.isVisible = true
                 binding.rvAnswer.isEnabled = false
                 binding.lblJawabanYangBenar.isVisible = true
                 binding.tvCorrectAnswer.isVisible = true
 
+                for (i in score?.answers!!){
+                    if (i.questionId == question.questionId){
+                        for (j in i.answer!!){
+                            binding.tvAnswerEssay.text = j
+                        }
+                    }
+                }
                 binding.tvCorrectAnswer.text = question?.shortAnswer?.get(0)?.shortAnswerText
             } else {
                 binding.rvAnswer.isEnabled = true
-                binding.etAnswer.isVisible = false
+                binding.tvAnswerEssay.isVisible = false
                 binding.lblJawabanYangBenar.isVisible = false
                 binding.tvCorrectAnswer.isVisible = false
 
                 binding.rvAnswer.apply {
-                    adapter = RvExplanationAnswerAdapter(question?.selectionAnswer?.get(0)?.selectionId!!,question.selection!!, question.selection.size)
+                    adapter = RvExplanationAnswerAdapter(question?.selectionAnswer,question?.selection!!, score, question.selection.size, requireActivity())
                     layoutManager = LinearLayoutManager(activity)
                     setHasFixedSize(true)
                 }
@@ -91,5 +98,7 @@ class ExplanationFragment : Fragment() {
 
     companion object {
         const val EXTRA_DATA_EXPLANATION = "extra_explanation"
+        const val EXTRA_DATA_SCORE = "extra_score"
+
     }
 }
