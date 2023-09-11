@@ -7,7 +7,7 @@
     <string name="hasil_merah">Gapapa, ayo latihan terus</string>
     <string name="logout">Logout</string>
     <string name="error_state_title_profile">Yah error nih :(</string>
-    <string name="error_state_subtitle_profile">Periksa koneksi internetmu atau swipe dari atas ke bawah untuk me-refresh halaman. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
+    <string name="error_state_subtitle_profile">Periksa koneksi internetmu atau login dulu dengan klik tombol LOGIN. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
     <string name="test_ke">Test ke - %s</string>
     <string name="benar">Benar : %s</string>
     <string name="salah">Salah : %s</string>
@@ -22,7 +22,7 @@
     <string name="empty_state_title_score">Yah masih kosong nih :v</string>
     <string name="empty_state_subtitle_score">Silakan kerjakan test nya dulu, nanti skor test mu akan muncul otomatis di sini, semangat ya !</string>
     <string name="error_state_title_score">Yah error nih :(</string>
-    <string name="error_state_subtitle_score">Periksa koneksi internetmu atau swipe dari atas ke bawah untuk me-refresh halaman. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
+    <string name="error_state_subtitle_score">Periksa koneksi internetmu atau klik tombol REFRESH untuk me-refresh halaman. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
     <string name="welcome_auth">Selamat datang di Try<font fgcolor="#E9A100">Out</font>App!</string>
     <string name="auth_login_content">Login sekarang dan rasakan semangat try out melalui test Try Out inovatif di TryOutApp.</string>
     <string name="login_button">Login with Google</string>
@@ -40,13 +40,14 @@
     <string name="positive_btn">Yakin</string>
     <string name="negative_btn">Engga</string>
     <string name="error_state_title_problem">Yah error nih :(</string>
-    <string name="error_state_subtitle_problem">Periksa koneksi internetmu atau swipe dari atas ke bawah untuk me-refresh halaman. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
+    <string name="error_state_subtitle_problem">Periksa koneksi internetmu atau klik tombol REFRESH untuk me-refresh halaman. Jika belum bisa, silakan hubungi kami, semangat ya !</string>
     <string name="title_activity_try_out_done">TryOutDoneActivity</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="refresh">Refresh</string>
+    <string name="login">Login</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
