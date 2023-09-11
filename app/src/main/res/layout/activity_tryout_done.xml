@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         app:msv_errorView="@layout/layout_error_problem"
         app:msv_loadingView="@layout/layout_loading_tryout_done"
-        app:msv_viewState="loading">
+        app:msv_viewState="content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_container"
@@ -69,7 +69,7 @@
                 style="@style/font_14_bold_white"
                 android:textAllCaps="false"
                 android:layout_marginTop="32dp"
-                android:text="@string/lihat_skor"
+                android:text="@string/ke_beranda"
                 android:background="@drawable/shape_bg_rounded_corner_tryout_done_dark_blue_12_full_radius"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.kennyc.view.MultiStateView>
