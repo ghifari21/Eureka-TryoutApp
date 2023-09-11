@@ -4,15 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gosty.tryoutapp.R
+import com.gosty.tryoutapp.data.models.ScoreModel
+import com.gosty.tryoutapp.data.models.TryoutModel
 import com.gosty.tryoutapp.data.ui.ExplanationViewPagerAdapter
 import com.gosty.tryoutapp.databinding.ActivityExplanationBinding
 import com.gosty.tryoutapp.databinding.LayoutErrorExplanationBinding
+import com.gosty.tryoutapp.ui.tryout.problem.ProblemActivity
 import com.gosty.tryoutapp.utils.Result
 import com.kennyc.view.MultiStateView
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,14 +24,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
     private lateinit var binding : ActivityExplanationBinding
-    private lateinit var bindingStateError : LayoutErrorExplanationBinding
     private val viewModel: ExplanationViewModel by viewModels()
     private lateinit var multiStateView: MultiStateView
+    private lateinit var dataTryout : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExplanationBinding.inflate(layoutInflater)
-        bindingStateError = LayoutErrorExplanationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
@@ -35,35 +38,56 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
         multiStateView = binding.msvExplanation
         multiStateView.listener = this
 
-        init()
+        dataTryout = intent.getStringExtra(EXTRA_QUESTION_TYPE)!!
+        val dataAnswer =intent.getParcelableExtra<ScoreModel>(EXTRA_ANSWER)
+
+        init(checkTryoutCategory(), dataAnswer!!)
+
+        multiStateView.getView(MultiStateView.ViewState.ERROR)?.findViewById<Button>(R.id.btnRefreshExplanation)?.setOnClickListener {
+            init(checkTryoutCategory(),dataAnswer)
+        }
+    }
+
+    /*
+    *   this method is to:
+    *   1. check the tryout category, "Data dan Ketidakpastian" or "Geometri dan Pengukuran"
+    *   @author Andi
+    *   @since September 11th, 2023
+    * */
+    private fun checkTryoutCategory() : Int{
+        if (dataTryout.lowercase() == "Data dan Ketidakpastian".lowercase()){
+            return 0
+        } else {
+            return  1
+        }
     }
 
     /*
         this method is to:
         1. set view pager adapter
         2. user unable to swipe explanation fragment instead of click previous-next as a navigation button
-        3. set click listener for previous-next as a navigation button
+        3. set click listener for previous-next button as a navigation button
+        4. implement multi state view
+        5. setup view pager
+        6. setup tab layout
+        7. setup custom view of tab layout
         @author Andi
         @since September 6th, 2023
+        Updated Septmber 11th, 2023 by Andi
      */
-    private fun init() {
+    private fun init(tryoutIndex : Int, answerData : ScoreModel) {
         viewModel.getSubjectForExplanation().observe(this@ExplanationActivity){
             when(it){
                 is Result.Loading -> {
                     multiStateView.viewState = MultiStateView.ViewState.LOADING
                 }
-                is  Result.Error -> {
-                    multiStateView.viewState = MultiStateView.ViewState.ERROR
-                    bindingStateError.btnRefreshExplanation.setOnClickListener {
-
-                    }
-                }
                 is Result.Success -> {
                     multiStateView.viewState = MultiStateView.ViewState.CONTENT
-                    val totalQuestion : Int = it.data[0].tryout?.get(0)?.question?.size!! + it.data[0].tryout?.get(1)?.question?.size!!
-                    val range = 0..totalQuestion
+                    val range = 0..it.data[0]?.tryout?.get(tryoutIndex)?.question?.size!!
                     val tabTitle = range.toList()
-                    binding.vpExplanation.adapter = ExplanationViewPagerAdapter(this@ExplanationActivity, it.data[0].tryout)
+
+                    binding.vpExplanation.adapter = ExplanationViewPagerAdapter(this@ExplanationActivity, it.data[0].tryout?.get(tryoutIndex)?.question, answerData)
+
                     TabLayoutMediator(binding.tlExplanation, binding.vpExplanation) { tab, position ->
                         tab.text = (tabTitle[position] + 1).toString()
                     }.attach()
@@ -79,20 +103,16 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                                     binding.vpExplanation.currentItem = position - 1
                                 }
                             }
-                            binding.btnNext.setOnClickListener {
-                                if (position != 19){
+                            binding.btnNext.setOnClickListener {view ->
+                                if (position != it.data[0]?.tryout?.get(tryoutIndex)?.question?.size!! - 1){
                                     binding.vpExplanation.currentItem = position + 1
                                 }
                             }
 
-                            binding.btnNext.isVisible = position != 19
+                            binding.btnNext.isVisible = position != it.data[0]?.tryout?.get(tryoutIndex)?.question?.size!! - 1
                             binding.btnPrevious.isVisible = position != 0
 
-                            if (it.data[0].tryout?.get(0)?.id == 30){
-                                binding.tvQuestionType.text = it.data[0].tryout?.get(0)?.categoryName
-                            } else if (it.data[0].tryout?.get(1)?.id == 31){
-                                binding.tvQuestionType.text = it.data[0].tryout?.get(1)?.categoryName
-                            }
+                            binding.tvQuestionType.text = it.data[0]?.tryout?.get(tryoutIndex)?.categoryName
                         }
                     })
                     for (i in range) {
@@ -101,11 +121,18 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                         binding.tlExplanation.getTabAt(i)?.customView = tv
                     }
                 }
-
-                else -> {}
+                else -> {
+                    multiStateView.viewState = MultiStateView.ViewState.ERROR
+                }
             }
         }
     }
 
     override fun onStateChanged(viewState: MultiStateView.ViewState) {}
+
+    companion object {
+        const val EXTRA_QUESTION_TYPE = "question_type"
+        const val EXTRA_ANSWER = "answer"
+
+    }
 }

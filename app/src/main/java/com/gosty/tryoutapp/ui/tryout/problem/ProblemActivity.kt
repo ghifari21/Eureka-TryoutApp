@@ -1,5 +1,6 @@
 package com.gosty.tryoutapp.ui.tryout.problem
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,10 +10,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.TryoutModel
 import com.gosty.tryoutapp.data.ui.TabPagerProblemAdapter
 import com.gosty.tryoutapp.databinding.ActivityProblemBinding
+import com.gosty.tryoutapp.ui.auth.AuthActivity
 import com.gosty.tryoutapp.ui.tryout_done.TryoutDoneActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.time.DurationUnit
@@ -23,6 +27,7 @@ class ProblemActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProblemBinding
     private val viewModel: ProblemViewModel by viewModels()
     private lateinit var timer: CountDownTimer
+    private var timerIsRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,25 +107,61 @@ class ProblemActivity : AppCompatActivity() {
                 .inflate(R.layout.tab_title, null) as TextView
             binding.tabLayout.getTabAt(i)?.customView = tv
         }
-
-        binding.btnSubmit.setOnClickListener {
+        if (!timerIsRunning){
             val intent = Intent(this@ProblemActivity, TryoutDoneActivity::class.java)
             intent.putExtra(TryoutDoneActivity.EXTRA_TRYOUT_CATEGORY, data.categoryName)
             intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_QUESTIONS, totalQuestion)
             intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_TIME_SPENT, totalTimeSpent)
             startActivity(intent)
             finish()
+
+            showTimesUpDialog()
+        } else {
+            binding.btnSubmit.setOnClickListener {
+                val confirmSubmitDialog = AlertDialog.Builder(this)
+                    .setTitle("Waktu masih ada nih, mau cek kembali dulu atau submit ?")
+                    .setPositiveButton("Submit",null)
+                    .setNegativeButton("Cek dulu",null)
+                    .create()
+
+                confirmSubmitDialog.show()
+
+                confirmSubmitDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                    confirmSubmitDialog.cancel()
+                    val intent = Intent(this@ProblemActivity, TryoutDoneActivity::class.java)
+                    intent.putExtra(TryoutDoneActivity.EXTRA_TRYOUT_CATEGORY, data.categoryName)
+                    intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_QUESTIONS, totalQuestion)
+                    intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_TIME_SPENT, totalTimeSpent)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+    }
+
+    private fun showTimesUpDialog(){
+        val timesUpDialog = AlertDialog.Builder(this)
+            .setTitle("Yah, waktu pengerjannya sudah selesai nih :(")
+            .setPositiveButton("Okelah",null)
+            .create()
+
+        timesUpDialog.show()
+
+        timesUpDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            timesUpDialog.cancel()
         }
     }
 
     override fun onStart() {
         super.onStart()
         timer.start()
+        timerIsRunning = true
     }
 
     override fun onStop() {
         super.onStop()
         timer.cancel()
+        timerIsRunning = false
     }
 
     companion object {

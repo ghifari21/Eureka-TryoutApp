@@ -47,6 +47,11 @@ class NumerationRepositoryImpl @Inject constructor(
         emitSource(data)
     }
 
+    /*
+    *   this method is to get all numeration tryout data for implementing on explanation feature
+    *   @author Andi
+    *   @since September 8th, 2023
+    * */
     override fun getAllNumerationTryoutsForExplanation(): LiveData<Result<List<SubjectModel>>> = liveData {
         emit(Result.Loading)
         val subjectList = MutableLiveData<List<SubjectModel>>()
@@ -75,6 +80,34 @@ class NumerationRepositoryImpl @Inject constructor(
                 Log.e("POST ANSWER", it.message.toString())
                 crashlytics.log(it.message.toString())
             }
+    }
+
+    /*
+    *   this method is to get all user's data related to his/her scores for score feature by using firebase realtime db
+    *   @author Andi
+    *   @since September 11th, 2023
+    * */
+    override fun getUserListScore(): LiveData<Result<List<ScoreModel>>> {
+        val userId = auth.currentUser?.uid
+        val ref = db.reference.child(BuildConfig.USER_REF)
+        val result = MutableLiveData<Result<List<ScoreModel>>>()
+
+        result.value = Result.Loading
+
+        ref.child(userId!!).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val data = snapshot.children.map {
+                    it.getValue(ScoreModel::class.java)!!
+                }
+                result.value = Result.Success(data)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                result.value = Result.Error(error.message)
+                crashlytics.log(error.message)
+            }
+        })
+        return result
     }
 
     override fun getAllUserAnswer(): LiveData<Result<List<AnswerModel>>> {
