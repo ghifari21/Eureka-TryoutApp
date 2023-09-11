@@ -43,18 +43,15 @@ class ChoiceActivity : AppCompatActivity() {
                     binding.btnDataDanKetidakpastian.setOnClickListener {
                         val intent = Intent(this@ChoiceActivity, ProblemActivity::class.java)
                         intent.putExtra(ProblemActivity.EXTRA_TRYOUT_TYPE, result.data[0].tryout!![0])
+                        intent.putExtra(ProblemActivity.EXTRA_TOTAL_QUESTIONS, result.data[0].tryout!![0]?.question?.size)
                         startActivity(intent)
                     }
 
                     binding.btnGeometriDanPengukuran.setOnClickListener {
                         val intent = Intent(this@ChoiceActivity, ProblemActivity::class.java)
                         intent.putExtra(ProblemActivity.EXTRA_TRYOUT_TYPE, result.data[0].tryout!![1])
+                        intent.putExtra(ProblemActivity.EXTRA_TOTAL_QUESTIONS, result.data[0].tryout!![1]?.question?.size)
                         startActivity(intent)
-                    }
-
-                    binding.refreshLayout.setOnRefreshListener {
-                        viewModel.getSubjects()
-                        binding.refreshLayout.isRefreshing = false
                     }
                 }
 
@@ -62,6 +59,11 @@ class ChoiceActivity : AppCompatActivity() {
                     binding.stateView.viewState = MultiStateView.ViewState.LOADING
                 }
             }
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getSubjects()
+            binding.refreshLayout.isRefreshing = false
         }
     }
 }

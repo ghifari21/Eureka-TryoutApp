@@ -25,12 +25,12 @@ class ScoreRecyclerViewAdapter(private var myScoreList : List<ScoreModel>) : Rec
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = myScoreList[position]
-        holder.binding.tvTestKe.text = Resources.getSystem().getString(R.string.test_ke, currentItem.testOrder.toString())
-        holder.binding.tvDurasi.text = currentItem.time.toString()
+        holder.binding.tvTestKe.text = Resources.getSystem().getString(R.string.test_ke, (position + 1).toString())
+        holder.binding.tvDurasi.text = currentItem.totalTime.toString()
         holder.binding.tvBenar.text = Resources.getSystem().getString(R.string.benar, currentItem.correctAnswer.toString())
         holder.binding.tvSalah.text = Resources.getSystem().getString(R.string.salah, currentItem.wrongAnswer.toString())
         holder.binding.tvKosong.text = Resources.getSystem().getString(R.string.kosong, currentItem.notAnswered.toString())
-        holder.binding.tvNilai.text = currentItem.grade.toString()
+        holder.binding.tvNilai.text = currentItem.score.toString()
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.context, ExplanationActivity::class.java)
             intent.putExtra("score_id",currentItem.scoreId)
