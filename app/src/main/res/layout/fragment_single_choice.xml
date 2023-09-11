@@ -34,7 +34,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:id="@+id/tv_total_problem"
@@ -55,26 +56,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_total_problem" />
 
-                <ImageView
-                    android:id="@+id/iv_question_image"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                <LinearLayout
+                    android:id="@+id/image_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:importantForAccessibility="no"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mv_question"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    app:layout_constraintTop_toBottomOf="@id/mv_question" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_answer_section"
+                <LinearLayout
+                    android:id="@+id/multiple_choice_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_marginVertical="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_question_image" />
+                    app:layout_constraintTop_toBottomOf="@id/image_container" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
