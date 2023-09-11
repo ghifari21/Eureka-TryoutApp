@@ -109,7 +109,7 @@ class NumerationRepositoryImpl @Inject constructor(
                 crashlytics.log(it.message.toString())
             }
     }
-
+    
     override fun postUserScore(score: ScoreModel) {
         val userId = auth.currentUser?.uid
         val ref = db.reference.child(BuildConfig.USER_REF)

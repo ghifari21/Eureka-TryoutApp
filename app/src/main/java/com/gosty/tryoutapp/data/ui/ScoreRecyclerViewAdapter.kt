@@ -11,7 +11,7 @@ import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.databinding.ItemScoreBinding
 import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
 
-class ScoreRecyclerViewAdapter(private var myScoreList : List<ScoreModel>) : RecyclerView.Adapter<ScoreRecyclerViewAdapter.MyViewHolder>() {
+class   ScoreRecyclerViewAdapter(private var myScoreList : List<ScoreModel>) : RecyclerView.Adapter<ScoreRecyclerViewAdapter.MyViewHolder>() {
     inner class  MyViewHolder(val binding : ItemScoreBinding, val context : Context) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

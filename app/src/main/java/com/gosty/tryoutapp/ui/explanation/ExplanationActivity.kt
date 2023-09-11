@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.ui.ExplanationViewPagerAdapter
 import com.gosty.tryoutapp.databinding.ActivityExplanationBinding
+import com.gosty.tryoutapp.databinding.LayoutErrorExplanationBinding
 import com.gosty.tryoutapp.utils.Result
 import com.kennyc.view.MultiStateView
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,12 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
     private lateinit var binding : ActivityExplanationBinding
+    private lateinit var bindingStateError : LayoutErrorExplanationBinding
     private val viewModel: ExplanationViewModel by viewModels()
     private lateinit var multiStateView: MultiStateView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExplanationBinding.inflate(layoutInflater)
+        bindingStateError = LayoutErrorExplanationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
@@ -44,7 +47,6 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
         @since September 6th, 2023
      */
     private fun init() {
-
         viewModel.getSubjectForExplanation().observe(this@ExplanationActivity){
             when(it){
                 is Result.Loading -> {
@@ -52,6 +54,9 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                 }
                 is  Result.Error -> {
                     multiStateView.viewState = MultiStateView.ViewState.ERROR
+                    bindingStateError.btnRefreshExplanation.setOnClickListener {
+
+                    }
                 }
                 is Result.Success -> {
                     multiStateView.viewState = MultiStateView.ViewState.CONTENT
@@ -96,6 +101,8 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                         binding.tlExplanation.getTabAt(i)?.customView = tv
                     }
                 }
+
+                else -> {}
             }
         }
     }
