@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -16,14 +17,20 @@ import com.google.firebase.ktx.Firebase
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.databinding.FragmentExplanationBinding
 import com.gosty.tryoutapp.databinding.FragmentProfileBinding
+import com.gosty.tryoutapp.databinding.LayoutErrorProfileBinding
 import com.gosty.tryoutapp.ui.auth.AuthActivity
+import com.gosty.tryoutapp.utils.Result
+import com.kennyc.view.MultiStateView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), MultiStateView.StateListener {
     private var _binding : FragmentProfileBinding? = null
+    private var _bindingStateError : LayoutErrorProfileBinding? = null
     private val binding get() = _binding
+    private val bindingStateError get() = _bindingStateError
+    private lateinit var multiStateView: MultiStateView
 
     @Inject
     lateinit var auth : FirebaseAuth
@@ -32,16 +39,18 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _bindingStateError = LayoutErrorProfileBinding.inflate(inflater,container,false)
         _binding = FragmentProfileBinding.inflate(inflater,container,false)
         return binding?.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        displayDataToView()
+        multiStateView = binding?.msvProfile!!
+        multiStateView.listener = this@ProfileFragment
+
+        init()
 
         binding?.btnLogout?.setOnClickListener {
             showLogoutAlertDialog()
@@ -55,8 +64,9 @@ class ProfileFragment : Fragment() {
         @author Andi
         @since September 5th, 2023
      */
-    private fun displayDataToView(){
+    private fun init(){
         val user = auth.currentUser
+        multiStateView.viewState = MultiStateView.ViewState.LOADING
         if (user != null){
             binding?.let {
                 Glide.with(requireContext())
@@ -66,11 +76,17 @@ class ProfileFragment : Fragment() {
                     .centerCrop()
                     .into(it.civProfilePhoto)
                 it.tvName.text = user.displayName
+                it.tvTotalTest.text = "0"
+                it.tvNilaiRataRata.text = "0"
             }
+            multiStateView.viewState = MultiStateView.ViewState.CONTENT
         } else {
-            val intent = Intent(requireContext(), AuthActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            multiStateView.viewState = MultiStateView.ViewState.ERROR
+            bindingStateError?.btnLoginProfile?.setOnClickListener {
+                val intent = Intent(requireContext(), AuthActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
         }
     }
 
@@ -100,4 +116,6 @@ class ProfileFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    override fun onStateChanged(viewState: MultiStateView.ViewState) {}
 }

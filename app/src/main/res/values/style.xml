@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="font_12_normal_gray_A8A8A8">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_A8A8A8</item>
+        <item name="android:textStyle">normal</item>
+    </style>
     <style name="font_14_bold_white">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
