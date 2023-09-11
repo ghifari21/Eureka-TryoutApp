@@ -1,7 +1,7 @@
 package com.gosty.tryoutapp.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -34,16 +34,5 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
-
-        val data = intent.getStringExtra(EXTRA_PAGE)
-        if (data != null && data == "1") {
-            navController.navigate(
-                R.id.action_navigation_home_to_navigation_score
-            )
-        }
-    }
-
-    companion object {
-        const val EXTRA_PAGE = "1"
     }
 }
