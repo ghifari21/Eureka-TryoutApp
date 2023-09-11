@@ -10,25 +10,25 @@ import java.util.TimeZone
 @Parcelize
 data class ScoreModel(
     val scoreId: String? = null,
-    val testOrder: Int? = null,
     val correctAnswer: Int? = null,
     val wrongAnswer: Int? = null,
     val notAnswered: Int? = null,
-    val time: Long? = null,
-    val grade: Double? = null,
+    val totalTime: Long? = null,
+    val dateTime: Long? = null,
+    val score: Int? = null,
     val tryoutCategory: String? = null,
-    val answers: List<String>? = null,
+    val answers: List<AnswerModel>? = null,
 ) : Parcelable {
     @Exclude
     fun toMap(): Map<String, Any?> =
         mapOf(
             "scoreId" to scoreId,
-            "testOrder" to testOrder,
             "correctAnswer" to correctAnswer,
             "wrongAnswer" to wrongAnswer,
             "notAnswered" to notAnswered,
-            "time" to time,
-            "grade" to grade,
+            "totalTime" to totalTime,
+            "dateTime" to dateTime,
+            "score" to score,
             "tryoutCategory" to tryoutCategory,
             "answers" to answers
         )

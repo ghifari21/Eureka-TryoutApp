@@ -34,6 +34,16 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
+
+        val data = intent.getStringExtra(EXTRA_PAGE)
+        if (data != null && data == "1") {
+            navController.navigate(
+                R.id.action_navigation_home_to_navigation_score
+            )
+        }
     }
 
+    companion object {
+        const val EXTRA_PAGE = "1"
+    }
 }

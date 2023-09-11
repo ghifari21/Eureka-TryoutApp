@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.gosty.tryoutapp.BuildConfig
 import com.gosty.tryoutapp.data.models.AnswerModel
+import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.data.models.SubjectModel
 import com.gosty.tryoutapp.data.models.TryoutModel
 import com.gosty.tryoutapp.data.remote.network.ApiService
@@ -105,6 +106,16 @@ class NumerationRepositoryImpl @Inject constructor(
         ref.child(userId!!).removeValue()
             .addOnFailureListener {
                 Log.e("DELETE ALL ANSWER", it.message.toString())
+                crashlytics.log(it.message.toString())
+            }
+    }
+    
+    override fun postUserScore(score: ScoreModel) {
+        val userId = auth.currentUser?.uid
+        val ref = db.reference.child(BuildConfig.USER_REF)
+        ref.child(userId!!).child(score.scoreId!!).setValue(score)
+            .addOnFailureListener {
+                Log.e("POST SCORE", it.message.toString())
                 crashlytics.log(it.message.toString())
             }
     }

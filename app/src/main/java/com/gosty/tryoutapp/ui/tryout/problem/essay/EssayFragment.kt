@@ -2,6 +2,7 @@ package com.gosty.tryoutapp.ui.tryout.problem.essay
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,18 +52,15 @@ class EssayFragment : Fragment() {
 
         binding?.etEssay?.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                val essay = binding?.etEssay?.text.toString().trim()
-                val essayLong = essay.replace(",", ".").toLong()
+                val essay = binding?.etEssay?.text.toString().trim().replace(".", ",")
                 val shortAnswerFirstRange =
-                    question?.shortAnswer!![0]!!.firstRange?.replace(",", ".")!!
-                        .toLong()
+                    question?.shortAnswer!![0]!!.firstRange
                 val shortAnswerSecondRange =
-                    question.shortAnswer[0]!!.secondRange?.replace(",", ".")!!
-                        .toLong()
+                    question.shortAnswer[0]!!.secondRange
                 val shortAnswer =
-                    question.shortAnswer[0]!!.shortAnswerText?.replace(",", ".")!!.toLong()
+                    question.shortAnswer[0]!!.shortAnswerText
 
-                val firstRange = if (shortAnswerFirstRange > shortAnswerSecondRange) {
+                val firstRange = if (shortAnswerFirstRange!! > shortAnswerSecondRange!!) {
                     shortAnswerFirstRange
                 } else {
                     shortAnswerSecondRange
@@ -74,13 +72,15 @@ class EssayFragment : Fragment() {
                     shortAnswerSecondRange
                 }
 
+                Log.i("RANGE", "${firstRange..secondRange}")
+
                 val answer = AnswerModel(
                     id = Utility.getRandomString().toInt(),
                     tryoutId = question.tryoutId,
                     questionId = question.questionId,
                     essay = true,
                     answer = listOf(essay),
-                    correct = essayLong in firstRange..secondRange || essayLong == shortAnswer
+                    correct = (essay in secondRange..firstRange) || essay == shortAnswer
                 )
                 viewModel.postAnswer(answer)
             }

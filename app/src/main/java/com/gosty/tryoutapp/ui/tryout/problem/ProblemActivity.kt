@@ -2,6 +2,7 @@ package com.gosty.tryoutapp.ui.tryout.problem
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -14,11 +15,14 @@ import com.gosty.tryoutapp.data.ui.TabPagerProblemAdapter
 import com.gosty.tryoutapp.databinding.ActivityProblemBinding
 import com.gosty.tryoutapp.ui.tryout_done.TryoutDoneActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 @AndroidEntryPoint
 class ProblemActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProblemBinding
     private val viewModel: ProblemViewModel by viewModels()
+    private lateinit var timer: CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +33,37 @@ class ProblemActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val data = intent.getParcelableExtra<TryoutModel?>(EXTRA_TRYOUT_TYPE)
+        val totalQuestion = intent.getIntExtra(EXTRA_TOTAL_QUESTIONS, 0)
 
-        initView(data)
+        setupTimer(data)
+
+        initView(data, totalQuestion)
     }
 
-    private fun initView(data: TryoutModel?) {
+    private fun setupTimer(data: TryoutModel?) {
+        timer = object : CountDownTimer(TIME_MILLISECONDS, TIME_ELAPSE) {
+            override fun onTick(remaining: Long) {
+                totalTimeSpent = TIME_MILLISECONDS - remaining
+                val time = remaining.toDuration(DurationUnit.MILLISECONDS)
+                val timeString = time.toComponents { minutes, seconds, _ ->
+                    String.format("%02d:%02d", minutes, seconds)
+                }
+                binding.tvTimer.text = timeString
+            }
+
+            override fun onFinish() {
+                totalTimeSpent = TIME_MILLISECONDS
+                val intent = Intent(this@ProblemActivity, TryoutDoneActivity::class.java)
+                intent.putExtra(TryoutDoneActivity.EXTRA_TRYOUT_CATEGORY, data?.categoryName)
+                intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_QUESTIONS, data?.question?.size)
+                intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_TIME_SPENT, totalTimeSpent)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    private fun initView(data: TryoutModel?, totalQuestion: Int) {
         viewModel.deleteAllUserAnswer()
 
         val range = 0..data?.question?.size!!
@@ -76,12 +106,28 @@ class ProblemActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
             val intent = Intent(this@ProblemActivity, TryoutDoneActivity::class.java)
             intent.putExtra(TryoutDoneActivity.EXTRA_TRYOUT_CATEGORY, data.categoryName)
+            intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_QUESTIONS, totalQuestion)
+            intent.putExtra(TryoutDoneActivity.EXTRA_TOTAL_TIME_SPENT, totalTimeSpent)
             startActivity(intent)
             finish()
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        timer.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        timer.cancel()
+    }
+
     companion object {
         const val EXTRA_TRYOUT_TYPE = "tryout_type"
+        const val EXTRA_TOTAL_QUESTIONS = "total_question"
+        private const val TIME_MILLISECONDS: Long = 1_800_000
+        private const val TIME_ELAPSE: Long = 1_000
+        private var totalTimeSpent: Long = 0
     }
 }
