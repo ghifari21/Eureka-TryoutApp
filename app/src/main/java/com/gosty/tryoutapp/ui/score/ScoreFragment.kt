@@ -2,12 +2,10 @@ package com.gosty.tryoutapp.ui.score
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gosty.tryoutapp.R
-import com.gosty.tryoutapp.databinding.FragmentProfileBinding
+import androidx.fragment.app.Fragment
 import com.gosty.tryoutapp.databinding.FragmentScoreBinding
 import com.gosty.tryoutapp.databinding.LayoutErrorScoreBinding
 import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
