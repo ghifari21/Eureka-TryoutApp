@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.gosty.tryoutapp.data.models.ScoreModel
-import com.gosty.tryoutapp.data.models.TryoutModel
 import com.gosty.tryoutapp.databinding.ActivityTryoutDoneBinding
 import com.gosty.tryoutapp.ui.main.MainActivity
 import com.gosty.tryoutapp.utils.Result
@@ -76,7 +75,6 @@ class TryoutDoneActivity : AppCompatActivity() {
 
                     binding.btnViewScore.setOnClickListener {
                         val intent = Intent(this@TryoutDoneActivity, MainActivity::class.java)
-                        intent.putExtra(MainActivity.EXTRA_PAGE, "1")
                         startActivity(intent)
                         finish()
                     }

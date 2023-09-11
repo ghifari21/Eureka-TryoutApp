@@ -23,6 +23,7 @@ android {
         buildConfigField("String", "CLIENT_ID", "\"581018519064-ne12ftklmbnb252ll3bb54tu8o353fek.apps.googleusercontent.com\"")
         buildConfigField("String", "USER_REF", "\"users\"")
         buildConfigField("String", "ANSWER_REF", "\"answers\"")
+        buildConfigField("String", "SHARED_PREF", "\"shared_preferences\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

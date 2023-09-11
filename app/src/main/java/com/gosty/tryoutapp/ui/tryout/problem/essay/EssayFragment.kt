@@ -2,14 +2,19 @@ package com.gosty.tryoutapp.ui.tryout.problem.essay
 
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
-import androidx.fragment.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.AnswerModel
 import com.gosty.tryoutapp.data.models.QuestionModel
@@ -23,6 +28,8 @@ class EssayFragment : Fragment() {
     private var _binding: FragmentEssayBinding? = null
     private val binding get() = _binding
     private val viewModel: EssayViewModel by viewModels()
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,14 +46,32 @@ class EssayFragment : Fragment() {
         val pos = arguments?.getString(TabPagerProblemAdapter.EXTRA_POS)
         val total = arguments?.getString(TabPagerProblemAdapter.EXTRA_TOTAL)
 
+        tabLayout = requireActivity().findViewById(R.id.tab_layout)
+        viewPager = requireActivity().findViewById(R.id.view_pager)
+
+        val imageList = mutableListOf<String>()
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
         binding?.mvQuestion?.text = Html.fromHtml(question?.questionText, flags, { source ->
-            Glide.with(requireActivity())
-                .load(source.replace(""""""", ""))
-                .into(binding?.ivQuestionImage!!)
-
+            imageList.add(source.replace("""\""", ""))
             null
         }, null).toString()
+
+        for (i in imageList) {
+            val imageView = ImageView(requireActivity())
+
+            Glide.with(requireActivity())
+                .load(i)
+                .placeholder(R.drawable.icon_black_image_placeholder)
+                .error(R.drawable.icon_black_broken_image)
+                .into(imageView)
+
+            val width = 720
+            val height = 480
+            val layoutParams = LinearLayout.LayoutParams(width, height)
+            layoutParams.gravity = Gravity.CENTER
+            imageView.layoutParams = layoutParams
+            binding?.imageContainer?.addView(imageView)
+        }
 
         binding?.tvTotalProblem?.text = activity?.getString(R.string.number_of_problem, pos, total)
 
@@ -72,8 +97,6 @@ class EssayFragment : Fragment() {
                     shortAnswerSecondRange
                 }
 
-                Log.i("RANGE", "${firstRange..secondRange}")
-
                 val answer = AnswerModel(
                     id = Utility.getRandomString().toInt(),
                     tryoutId = question.tryoutId,
@@ -83,8 +106,19 @@ class EssayFragment : Fragment() {
                     correct = (essay in secondRange..firstRange) || essay == shortAnswer
                 )
                 viewModel.postAnswer(answer)
+                tabLayoutView()
             }
         }
+    }
+
+    private fun tabLayoutView() {
+        val tabView =
+            LayoutInflater.from(requireActivity()).inflate(R.layout.tab_title, null) as TextView
+        tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_green_full_radius)
+        tabView.setTextColor(requireContext().getColor(R.color.white))
+
+        val currentTab = tabLayout.getTabAt(viewPager.currentItem)
+        currentTab?.customView = tabView
     }
 
     override fun onDestroy() {
