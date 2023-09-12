@@ -41,12 +41,12 @@ class ProblemActivity : AppCompatActivity() {
         val data = intent.getParcelableExtra<TryoutModel?>(EXTRA_TRYOUT_TYPE)
         val totalQuestion = intent.getIntExtra(EXTRA_TOTAL_QUESTIONS, 0)
 
-        setupTimer(data, this, totalQuestion)
+        setupTimer(data)
 
         initView(data, totalQuestion)
     }
 
-    private fun setupTimer(data: TryoutModel?, activity: Activity, totalQuestion: Int) {
+    private fun setupTimer(data: TryoutModel?) {
         timer = object : CountDownTimer(TIME_MILLISECONDS, TIME_ELAPSE) {
             override fun onTick(remaining: Long) {
                 totalTimeSpent = TIME_MILLISECONDS - remaining
@@ -55,9 +55,6 @@ class ProblemActivity : AppCompatActivity() {
                     String.format("%02d:%02d", minutes, seconds)
                 }
                 binding.tvTimer.text = timeString
-                binding.btnSubmit.setOnClickListener {
-                    showConfirmSubmitDialog(data, activity, totalQuestion)
-                }
             }
 
             override fun onFinish() {
@@ -95,13 +92,14 @@ class ProblemActivity : AppCompatActivity() {
         }
     }
 
-    private fun initView(data: TryoutModel?, totalQuestion: Int) {
+    private fun initView(data: TryoutModel?, totalQuestion: Int?) {
         viewModel.deleteAllUserAnswer()
 
         val range = 0..data?.question?.size!!
         val rangeList = range.toList()
-        binding.viewPager.adapter =
-            TabPagerProblemAdapter(this, data.question)
+        val viewPagerAdapter = TabPagerProblemAdapter(this, data.question)
+        binding.viewPager.offscreenPageLimit = totalQuestion!!
+        binding.viewPager.adapter = viewPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = (rangeList[position] + 1).toString()
         }.attach()
@@ -133,6 +131,10 @@ class ProblemActivity : AppCompatActivity() {
             val tv = LayoutInflater.from(this@ProblemActivity)
                 .inflate(R.layout.tab_title, null) as TextView
             binding.tabLayout.getTabAt(i)?.customView = tv
+        }
+
+        binding.btnSubmit.setOnClickListener {
+            showConfirmSubmitDialog(data, this@ProblemActivity, totalQuestion)
         }
     }
 
