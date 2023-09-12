@@ -3,7 +3,6 @@ package com.gosty.tryoutapp.ui.score
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,8 @@ import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gosty.tryoutapp.R
-import com.gosty.tryoutapp.data.ui.RvListMultipleChoiceAdapter
 import com.gosty.tryoutapp.data.ui.ScoreRecyclerViewAdapter
 import com.gosty.tryoutapp.databinding.FragmentScoreBinding
-import com.gosty.tryoutapp.databinding.LayoutEmptyScoreBinding
-import com.gosty.tryoutapp.databinding.LayoutErrorScoreBinding
 import com.gosty.tryoutapp.ui.home.HomeFragment
 import com.gosty.tryoutapp.utils.Result
 import com.kennyc.view.MultiStateView

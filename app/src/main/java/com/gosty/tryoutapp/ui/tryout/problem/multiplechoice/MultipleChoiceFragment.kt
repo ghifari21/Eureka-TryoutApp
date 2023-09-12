@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.gosty.tryoutapp.R
@@ -30,7 +29,6 @@ class MultipleChoiceFragment : Fragment() {
     private val binding get() = _binding
     private val viewModel: MultipleChoiceViewModel by viewModels()
     private lateinit var tabLayout: TabLayout
-    private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +44,9 @@ class MultipleChoiceFragment : Fragment() {
         val question = arguments?.getParcelable<QuestionModel>(TabPagerProblemAdapter.EXTRA_DATA)
         val pos = arguments?.getString(TabPagerProblemAdapter.EXTRA_POS)
         val total = arguments?.getString(TabPagerProblemAdapter.EXTRA_TOTAL)
+        val currentItem = arguments?.getInt(TabPagerProblemAdapter.CURRENT_ITEM)
 
         tabLayout = requireActivity().findViewById(R.id.tab_layout)
-        viewPager = requireActivity().findViewById(R.id.view_pager)
 
         val imageList = mutableListOf<String>()
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
@@ -59,7 +57,7 @@ class MultipleChoiceFragment : Fragment() {
 
         imageHandler(imageList)
 
-        answerHandler(question)
+        answerHandler(question, currentItem)
 
         binding?.tvTotalProblem?.text = activity?.getString(R.string.number_of_problem, pos, total)
     }
@@ -83,7 +81,7 @@ class MultipleChoiceFragment : Fragment() {
         }
     }
 
-    private fun answerHandler(question: QuestionModel?) {
+    private fun answerHandler(question: QuestionModel?, currentItem: Int?) {
         for (i in question?.selection!!) {
             val linearLayout = LinearLayout(requireActivity())
             val linearLayoutParams =
@@ -179,20 +177,20 @@ class MultipleChoiceFragment : Fragment() {
                     correct = correct == question.selectionAnswer.size && correct == answerList.size
                 )
                 viewModel.postAnswer(answer)
-                tabLayoutView()
+                tabLayoutView(currentItem!!)
             }
 
             binding?.multipleChoiceContainer?.addView(linearLayout)
         }
     }
 
-    private fun tabLayoutView() {
+    private fun tabLayoutView(currentItem: Int) {
         val tabView =
             LayoutInflater.from(requireActivity()).inflate(R.layout.tab_title, null) as TextView
         tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_green_full_radius)
         tabView.setTextColor(requireContext().getColor(R.color.white))
 
-        val currentTab = tabLayout.getTabAt(viewPager.currentItem)
+        val currentTab = tabLayout.getTabAt(currentItem)
         currentTab?.customView = tabView
     }
 
