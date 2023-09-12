@@ -73,7 +73,7 @@ class ScoreFragment : Fragment(), MultiStateView.StateListener {
                         multiStateView.viewState = MultiStateView.ViewState.EMPTY
                     } else {
                         binding?.rvScore?.apply {
-                            adapter = ScoreRecyclerViewAdapter(it.data)
+                            adapter = ScoreRecyclerViewAdapter(it.data.reversed())
                             layoutManager = LinearLayoutManager(activity)
                             setHasFixedSize(true)
                         }
