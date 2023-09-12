@@ -55,7 +55,7 @@ class RvExplanationAnswerAdapter(
             if (i.questionId == currentItem?.questionId){
                 for (j in i.answer!!){
                     if (currentItem?.selectionText?.isEmpty() == false){
-                        if (j == currentItem?.selectionText){
+                        if (j == currentItem.selectionText){
                             for (k in selectionAnswer!!){
                                 if (j != k?.selectionText){
                                     holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)

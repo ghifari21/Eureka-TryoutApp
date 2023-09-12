@@ -30,6 +30,7 @@ class TabPagerProblemAdapter constructor(
         bundle.putParcelable(EXTRA_DATA, questions?.get(position))
         bundle.putString(EXTRA_POS, (position + 1).toString())
         bundle.putString(EXTRA_TOTAL, questions?.size.toString())
+        bundle.putInt(CURRENT_ITEM, position)
         fragment.arguments = bundle
 
         return fragment
@@ -39,5 +40,6 @@ class TabPagerProblemAdapter constructor(
         const val EXTRA_DATA = "extra"
         const val EXTRA_POS = "position"
         const val EXTRA_TOTAL = "total"
+        const val CURRENT_ITEM = "current_item"
     }
 }

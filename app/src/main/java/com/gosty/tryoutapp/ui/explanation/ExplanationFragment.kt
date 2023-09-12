@@ -49,7 +49,7 @@ class ExplanationFragment : Fragment() {
             binding.rvAnswer.isEnabled = true
 
             binding.rvAnswer.apply {
-                adapter = RvExplanationAnswerAdapter(question?.selectionAnswer,question.selection!!, score, question.selection.size, requireActivity())
+                adapter = RvExplanationAnswerAdapter(question.selectionAnswer,question.selection!!, score, question.selection.size, requireActivity())
                 layoutManager = LinearLayoutManager(activity)
                 setHasFixedSize(true)
             }

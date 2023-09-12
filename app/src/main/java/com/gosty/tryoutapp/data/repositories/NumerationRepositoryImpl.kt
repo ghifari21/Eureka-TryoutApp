@@ -94,7 +94,7 @@ class NumerationRepositoryImpl @Inject constructor(
 
         result.value = Result.Loading
 
-        ref.child(userId!!).addValueEventListener(object : ValueEventListener{
+        ref.child(userId!!).orderByChild("dateTime").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val data = snapshot.children.map {
                     it.getValue(ScoreModel::class.java)!!
