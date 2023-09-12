@@ -53,6 +53,17 @@ class ExplanationFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity)
                 setHasFixedSize(true)
             }
+            for (i in score?.answers!!){
+                for (j in question.selectionAnswer!!){
+                    if (i.questionId == j?.questionId){
+                        if (i.answer?.isEmpty() == true){
+                            binding.tvNotAnswerInfo.isVisible = true
+                        } else {
+                            binding.tvNotAnswerInfo.isVisible = false
+                        }
+                    }
+                }
+            }
         } else {
             if (question?.selection?.isEmpty() == true){
                 binding.tvAnswerEssay.isVisible = true
@@ -67,6 +78,11 @@ class ExplanationFragment : Fragment() {
                         }
                     }
                 }
+                if (binding.tvAnswerEssay.text.isEmpty()){
+                    binding.tvNotAnswerInfo.isVisible = true
+                } else {
+                    binding.tvNotAnswerInfo.isVisible = false
+                }
                 binding.tvCorrectAnswer.text = question?.shortAnswer?.get(0)?.shortAnswerText
             } else {
                 binding.rvAnswer.isEnabled = true
@@ -78,6 +94,17 @@ class ExplanationFragment : Fragment() {
                     adapter = RvExplanationAnswerAdapter(question?.selectionAnswer,question?.selection!!, score, question.selection.size, requireActivity())
                     layoutManager = LinearLayoutManager(activity)
                     setHasFixedSize(true)
+                }
+                for (i in score?.answers!!){
+                    for (j in question?.selectionAnswer!!){
+                        if (i.questionId == j?.questionId){
+                            if (i.answer?.isEmpty() == true){
+                                binding.tvNotAnswerInfo.isVisible = true
+                            } else {
+                                binding.tvNotAnswerInfo.isVisible = false
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -99,6 +126,5 @@ class ExplanationFragment : Fragment() {
     companion object {
         const val EXTRA_DATA_EXPLANATION = "extra_explanation"
         const val EXTRA_DATA_SCORE = "extra_score"
-
     }
 }

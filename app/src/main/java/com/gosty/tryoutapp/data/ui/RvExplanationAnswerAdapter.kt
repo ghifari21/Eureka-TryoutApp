@@ -2,6 +2,7 @@ package com.gosty.tryoutapp.data.ui
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.text.Html
 import android.view.LayoutInflater
@@ -14,6 +15,8 @@ import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.data.models.SelectionAnswerModel
 import com.gosty.tryoutapp.data.models.SelectionModel
 import com.gosty.tryoutapp.databinding.ItemAnswerBinding
+import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
+import com.gosty.tryoutapp.ui.explanation.ExplanationFragment
 
 class RvExplanationAnswerAdapter(
     var selectionAnswer: List<SelectionAnswerModel?>?,
