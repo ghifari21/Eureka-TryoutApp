@@ -2,8 +2,10 @@ package com.gosty.tryoutapp.ui.tryout_done
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.databinding.ActivityTryoutDoneBinding
 import com.gosty.tryoutapp.ui.main.MainActivity
@@ -82,6 +84,13 @@ class TryoutDoneActivity : AppCompatActivity() {
 
                 is Result.Error -> {
                     binding.stateView.viewState = MultiStateView.ViewState.ERROR
+                    val error = binding.stateView.getView(MultiStateView.ViewState.EMPTY)
+                    if (error != null) {
+                        val btn: Button = error.findViewById(R.id.btnRefreshProblem)
+                        btn.setOnClickListener {
+                            viewModel.getAllUserAnswer()
+                        }
+                    }
                 }
             }
         }

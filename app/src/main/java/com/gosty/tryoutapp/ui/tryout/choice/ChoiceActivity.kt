@@ -2,8 +2,10 @@ package com.gosty.tryoutapp.ui.tryout.choice
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.databinding.ActivityChoiceBinding
 import com.gosty.tryoutapp.ui.tryout.problem.ProblemActivity
 import com.gosty.tryoutapp.utils.Result
@@ -57,6 +59,13 @@ class ChoiceActivity : AppCompatActivity() {
 
                 is Result.Error -> {
                     binding.stateView.viewState = MultiStateView.ViewState.LOADING
+                    val error = binding.stateView.getView(MultiStateView.ViewState.EMPTY)
+                    if (error != null) {
+                        val btn: Button = error.findViewById(R.id.btnRefreshProblem)
+                        btn.setOnClickListener {
+                            viewModel.getSubjects()
+                        }
+                    }
                 }
             }
         }
