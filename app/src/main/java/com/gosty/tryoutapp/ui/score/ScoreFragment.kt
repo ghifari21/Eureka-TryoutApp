@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.ui.ScoreRecyclerViewAdapter
@@ -46,11 +48,9 @@ class ScoreFragment : Fragment(), MultiStateView.StateListener {
         }
 
         multiStateView.getView(MultiStateView.ViewState.EMPTY)?.findViewById<Button>(R.id.btnMulaiTestPertama)?.setOnClickListener {
-            startActivity(
-                Intent(
-                    activity,
-                    HomeFragment::class.java
-                )
+            val navController = requireActivity().findNavController(R.id.nav_host_fragment)
+            navController.navigate(
+                R.id.action_navigation_score_to_navigation_home
             )
         }
     }

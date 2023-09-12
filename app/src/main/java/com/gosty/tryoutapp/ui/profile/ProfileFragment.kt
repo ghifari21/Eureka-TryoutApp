@@ -90,18 +90,20 @@ class ProfileFragment : Fragment(), MultiStateView.StateListener {
                             it.tvTotalTest.text = "0"
                             it.tvNilaiRataRata.text = "0"
                             it.tvTotalTest.text = result.data.size.toString()
-                            var sum : Int = 0
-                            for (i in result.data){
-                                sum += i.score!!
-                            }
-                            val mean = sum/result.data.size
-                            it.tvNilaiRataRata.text = mean.toString()
-                            if (mean < 50) {
-                                it.tvNilaiRataRata.setTextAppearance(R.style.font_36_bold_red_DC2020)
-                            } else if (mean < 80){
-                                it.tvNilaiRataRata.setTextAppearance(R.style.font_36_bold_yellow_E9A100)
-                            } else {
-                                it.tvNilaiRataRata.setTextAppearance(R.style.font_36_bold_green_29823B)
+                            if (result.data.isNotEmpty()) {
+                                var sum : Int = 0
+                                for (i in result.data){
+                                    sum += i.score!!
+                                }
+                                val mean = sum/result.data.size
+                                it.tvNilaiRataRata.text = mean.toString()
+                                if (mean < 50) {
+                                    it.tvNilaiRataRata.setTextAppearance(R.style.font_36_bold_red_DC2020)
+                                } else if (mean < 80){
+                                    it.tvNilaiRataRata.setTextAppearance(R.style.font_36_bold_yellow_E9A100)
+                                } else {
+                                    it.tvNilaiRataRata.setTextAppearance(R.style.font_36_bold_green_29823B)
+                                }
                             }
                         }
                         multiStateView.viewState = MultiStateView.ViewState.CONTENT
