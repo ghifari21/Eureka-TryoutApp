@@ -134,7 +134,7 @@ class ProblemActivity : AppCompatActivity() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            showConfirmSubmitDialog(data, this@ProblemActivity, totalQuestion!!)
+            showConfirmSubmitDialog(data, this@ProblemActivity, totalQuestion)
         }
     }
 

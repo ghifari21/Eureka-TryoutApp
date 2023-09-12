@@ -49,7 +49,7 @@ class ExplanationFragment : Fragment() {
             binding.rvAnswer.isEnabled = true
 
             binding.rvAnswer.apply {
-                adapter = RvExplanationAnswerAdapter(question?.selectionAnswer,question.selection!!, score, question.selection.size, requireActivity())
+                adapter = RvExplanationAnswerAdapter(question.selectionAnswer,question.selection!!, score, question.selection.size, requireActivity())
                 layoutManager = LinearLayoutManager(activity)
                 setHasFixedSize(true)
             }
@@ -67,7 +67,7 @@ class ExplanationFragment : Fragment() {
                         }
                     }
                 }
-                binding.tvCorrectAnswer.text = question?.shortAnswer?.get(0)?.shortAnswerText
+                binding.tvCorrectAnswer.text = question.shortAnswer?.get(0)?.shortAnswerText
             } else {
                 binding.rvAnswer.isEnabled = true
                 binding.tvAnswerEssay.isVisible = false

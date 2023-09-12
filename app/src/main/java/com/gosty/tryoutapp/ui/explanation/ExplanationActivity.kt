@@ -83,7 +83,7 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                 }
                 is Result.Success -> {
                     multiStateView.viewState = MultiStateView.ViewState.CONTENT
-                    val range = 0..it.data[0]?.tryout?.get(tryoutIndex)?.question?.size!!
+                    val range = 0..it.data[0].tryout?.get(tryoutIndex)?.question?.size!!
                     val tabTitle = range.toList()
 
                     binding.vpExplanation.adapter = ExplanationViewPagerAdapter(this@ExplanationActivity, it.data[0].tryout?.get(tryoutIndex)?.question, answerData)
@@ -104,15 +104,15 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                                 }
                             }
                             binding.btnNext.setOnClickListener {view ->
-                                if (position != it.data[0]?.tryout?.get(tryoutIndex)?.question?.size!! - 1){
+                                if (position != it.data[0].tryout?.get(tryoutIndex)?.question?.size!! - 1){
                                     binding.vpExplanation.currentItem = position + 1
                                 }
                             }
 
-                            binding.btnNext.isVisible = position != it.data[0]?.tryout?.get(tryoutIndex)?.question?.size!! - 1
+                            binding.btnNext.isVisible = position != it.data[0].tryout?.get(tryoutIndex)?.question?.size!! - 1
                             binding.btnPrevious.isVisible = position != 0
 
-                            binding.tvQuestionType.text = it.data[0]?.tryout?.get(tryoutIndex)?.categoryName
+                            binding.tvQuestionType.text = it.data[0].tryout?.get(tryoutIndex)?.categoryName
                         }
                     })
                     for (i in range) {
