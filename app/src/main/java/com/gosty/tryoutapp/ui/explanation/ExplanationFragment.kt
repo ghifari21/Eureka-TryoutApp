@@ -3,10 +3,13 @@ package com.gosty.tryoutapp.ui.explanation
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,13 +51,16 @@ class ExplanationFragment : Fragment() {
 
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
 
+        val imageListQuestion = mutableListOf<String>()
+        val imageListExplanation = mutableListOf<String>()
+
         binding.mvQuestionExplanation.text = Html.fromHtml(question?.questionText, flags, { source ->
             Glide.with(requireActivity())
-                .load(source.replace(""""""", ""))
-                .override(1000,700)
-                .into(binding.ivQuestionExplanation)
+                imageListQuestion.add(source.replace(""""""", ""))
             null
         }, null).toString()
+
+        imageHandler(true, imageListQuestion)
 
         if (question?.tryoutId == 30) {
             binding.tvAnswerEssay.isVisible = false
@@ -126,11 +132,34 @@ class ExplanationFragment : Fragment() {
 
         binding.mvExplanation.text = Html.fromHtml(question?.discussion?.get(0)?.discussionText, flags, { source ->
             Glide.with(requireActivity())
-                .load(source.replace(""""""", ""))
-                .override(1000,700)
-                .into(binding.ivExplanation)
+                imageListExplanation.add(source.replace(""""""", ""))
             null
         }, null).toString()
+
+        imageHandler(false, imageListExplanation)
+    }
+
+    private fun imageHandler(question: Boolean, imageList: List<String>) {
+        for (i in imageList) {
+            val imageView = ImageView(requireActivity())
+
+            Glide.with(requireActivity())
+                .load(i)
+                .placeholder(R.drawable.icon_black_image_placeholder)
+                .error(R.drawable.icon_black_broken_image)
+                .into(imageView)
+
+            val width = 720
+            val height = 480
+            val layoutParams = LinearLayout.LayoutParams(width, height)
+            layoutParams.gravity = Gravity.CENTER
+            imageView.layoutParams = layoutParams
+            if (question == true){
+                binding.imgContainerQuestion.addView(imageView)
+            } else {
+                binding.imgContainerExplanation.addView(imageView)
+            }
+        }
     }
 
     override fun onDestroy() {
