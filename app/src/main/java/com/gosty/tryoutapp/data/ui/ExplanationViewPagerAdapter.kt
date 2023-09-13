@@ -23,10 +23,11 @@ class ExplanationViewPagerAdapter(
 
         bundle.putParcelable(ExplanationFragment.EXTRA_DATA_EXPLANATION, questions?.get(position))
         bundle.putParcelable(ExplanationFragment.EXTRA_DATA_SCORE, score)
+        bundle.putInt(ExplanationFragment.EXTRA_POSITION, position)
+        bundle.putInt(ExplanationFragment.EXTRA_TOTAL_QUESTION, questions?.size!!)
 
         fragment.arguments = bundle
 
         return fragment
     }
-
 }

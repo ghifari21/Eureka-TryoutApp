@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@android:id/text2"
-    style="@style/font_16_bold_white"
+    android:id="@android:id/text1"
+    style="@style/font_16_bold_dark_blue_180B3F"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_tab_explanation_bg"
