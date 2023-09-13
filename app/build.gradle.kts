@@ -19,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
-        buildConfigField("String", "BASE_URL", "\"https://api.mockfly.dev/mocks/8587320d-4d93-41e7-a2d4-23d4ebc2ceae/\"")
+        buildConfigField("String", "BASE_URL", "\"https://api.mockfly.dev/\"")
         buildConfigField("String", "CLIENT_ID", "\"581018519064-ne12ftklmbnb252ll3bb54tu8o353fek.apps.googleusercontent.com\"")
         buildConfigField("String", "USER_REF", "\"users\"")
         buildConfigField("String", "ANSWER_REF", "\"answers\"")

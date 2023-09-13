@@ -3,6 +3,7 @@ package com.gosty.tryoutapp.ui.tryout_done
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.gosty.tryoutapp.R
@@ -84,7 +85,8 @@ class TryoutDoneActivity : AppCompatActivity() {
 
                 is Result.Error -> {
                     binding.stateView.viewState = MultiStateView.ViewState.ERROR
-                    val error = binding.stateView.getView(MultiStateView.ViewState.EMPTY)
+                    Toast.makeText(this@TryoutDoneActivity, result.error, Toast.LENGTH_SHORT).show()
+                    val error = binding.stateView.getView(MultiStateView.ViewState.ERROR)
                     if (error != null) {
                         val btn: Button = error.findViewById(R.id.btnRefreshProblem)
                         btn.setOnClickListener {

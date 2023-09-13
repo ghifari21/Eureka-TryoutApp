@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
@@ -80,8 +81,9 @@ class ScoreFragment : Fragment(), MultiStateView.StateListener {
                         multiStateView.viewState = MultiStateView.ViewState.CONTENT
                     }
                 }
-                else -> {
+                is Result.Error -> {
                     multiStateView.viewState = MultiStateView.ViewState.ERROR
+                    Toast.makeText(requireActivity(), it.error, Toast.LENGTH_SHORT).show()
                 }
             }
         }
