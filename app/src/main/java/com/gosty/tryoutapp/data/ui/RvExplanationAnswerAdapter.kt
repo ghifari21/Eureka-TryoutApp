@@ -62,6 +62,23 @@ class RvExplanationAnswerAdapter(
                         .load(currentItem.image)
                         .into(holder.binding.ivAnswer)
                 }
+            } else {
+                for (a in selectionAnswer!!){
+                    if (currentItem?.selectionText?.isEmpty() == true){
+                        if (currentItem?.image == a?.image){
+                            holder.binding.mvAnswer.isVisible = false
+                            Glide.with(context)
+                                .load(currentItem.image)
+                                .into(holder.binding.ivAnswer)
+                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                        } else{
+                            holder.binding.mvAnswer.isVisible = false
+                            Glide.with(context)
+                                .load(currentItem.image)
+                                .into(holder.binding.ivAnswer)
+                        }
+                    }
+                }
             }
         }
 
@@ -70,20 +87,18 @@ class RvExplanationAnswerAdapter(
                 for (j in i.answer!!){
                     if (currentItem?.selectionText?.isEmpty() == false){
                         if (j == currentItem.selectionText){
+                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
                             for (k in selectionAnswer!!){
-                                if (j != k?.selectionText){
-                                    holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
-                                } else {
+                                if (j == k?.selectionText){
                                     holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
                                 }
                             }
                         }
                     } else {
                         if (j == currentItem?.image){
+                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
                             for (k in selectionAnswer!!){
-                                if (j != k?.image){
-                                    holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
-                                } else {
+                                if (j == k?.image){
                                     holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
                                 }
                             }
