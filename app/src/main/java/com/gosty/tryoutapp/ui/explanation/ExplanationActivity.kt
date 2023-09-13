@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.ScoreModel
@@ -27,6 +28,8 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
     private val viewModel: ExplanationViewModel by viewModels()
     private lateinit var multiStateView: MultiStateView
     private lateinit var dataTryout : String
+    private lateinit var tabLayout: TabLayout
+    private lateinit var dataAnswer : ScoreModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +42,7 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
         multiStateView.listener = this
 
         dataTryout = intent.getStringExtra(EXTRA_QUESTION_TYPE)!!
-        val dataAnswer =intent.getParcelableExtra<ScoreModel>(EXTRA_ANSWER)
+        dataAnswer =intent.getParcelableExtra(EXTRA_ANSWER)!!
 
         init(checkTryoutCategory(), dataAnswer!!)
 
@@ -83,13 +86,29 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                 }
                 is Result.Success -> {
                     multiStateView.viewState = MultiStateView.ViewState.CONTENT
-                    val range = 0..it.data[0].tryout?.get(tryoutIndex)?.question?.size!!
+                    val range = 1..it.data[0].tryout?.get(tryoutIndex)?.question?.size!!
                     val tabTitle = range.toList()
+                    val question = it.data[0].tryout?.get(tryoutIndex)?.question
 
                     binding.vpExplanation.adapter = ExplanationViewPagerAdapter(this@ExplanationActivity, it.data[0].tryout?.get(tryoutIndex)?.question, answerData)
 
                     TabLayoutMediator(binding.tlExplanation, binding.vpExplanation) { tab, position ->
-                        tab.text = (tabTitle[position] + 1).toString()
+                        tab.text = (tabTitle[position]).toString()
+                        val tabView =
+                            LayoutInflater.from(this).inflate(R.layout.tab_title_explanation, null) as TextView
+                        val getQuestionId = question?.get(position)?.questionId
+                        for (i in dataAnswer.answers!!){
+                            if (getQuestionId == i.questionId){
+                                if (i.correct == true){
+                                    tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_green_full_radius)
+                                    tabView.setTextColor(this.getColor(R.color.white))
+                                } else {
+                                    tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_red_full_radius)
+                                    tabView.setTextColor(this.getColor(R.color.white))
+                                }
+                            }
+                        }
+                        tab.customView = tabView
                     }.attach()
 
                     binding.vpExplanation.isUserInputEnabled = false
@@ -115,11 +134,6 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                             binding.tvQuestionType.text = it.data[0].tryout?.get(tryoutIndex)?.categoryName
                         }
                     })
-                    for (i in range) {
-                        val tv = LayoutInflater.from(this@ExplanationActivity)
-                            .inflate(R.layout.tab_title, null) as TextView
-                        binding.tlExplanation.getTabAt(i)?.customView = tv
-                    }
                 }
                 else -> {
                     multiStateView.viewState = MultiStateView.ViewState.ERROR

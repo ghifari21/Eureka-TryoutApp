@@ -33,11 +33,21 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent">
 
+                        <TextView
+                            android:id="@+id/tvQuestionOrder"
+                            style="@style/font_14_bold_dark_blue_180B3F"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/number_of_explanation" />
+
                         <io.github.kexanie.library.MathView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/mvQuestionExplanation"
-                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvQuestionOrder"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             android:layout_marginTop="6dp"
