@@ -9,27 +9,48 @@
     android:background="@drawable/shape_bg_rounded_corner_answer_gray_8_full_radius"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <io.github.kexanie.library.MathView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/mvAnswer"
-        app:engine="MathJax"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/tvOpsiABC"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="Pilihan 1"
-        style="@style/font_14_bold_dark_blue_180B3F"/>
+        app:layout_constraintRight_toLeftOf="@+id/sectionOption"/>
 
-    <ImageView
-        android:id="@+id/ivAnswer"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:importantForAccessibility="no"
+        android:id="@+id/sectionOption"
+        style="@style/font_14_bold_dark_blue_180B3F"
+        app:layout_constraintLeft_toRightOf="@+id/tvOpsiABC"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent">
+
+        <io.github.kexanie.library.MathView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mvAnswer"
+            app:engine="MathJax"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="Pilihan 1"
+            style="@style/font_14_bold_dark_blue_180B3F"/>
+
+        <ImageView
+            android:id="@+id/ivAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
