@@ -90,6 +90,18 @@ class RvExplanationAnswerAdapter(
                         }
                     }
                 }
+            } else {
+                for (a in selectionAnswer!!){
+                    if (currentItem?.selectionText?.isEmpty() == false){
+                        if (currentItem?.selectionText == a?.selectionText){
+                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                        }
+                    } else {
+                        if (currentItem?.image == a?.image){
+                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                        }
+                    }
+                }
             }
         }
     }
