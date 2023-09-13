@@ -37,6 +37,7 @@ class ExplanationFragment : Fragment() {
         binding.mvQuestionExplanation.text = Html.fromHtml(question?.questionText, flags, { source ->
             Glide.with(requireActivity())
                 .load(source.replace(""""""", ""))
+                .override(1000,700)
                 .into(binding.ivQuestionExplanation)
             null
         }, null).toString()
@@ -112,6 +113,7 @@ class ExplanationFragment : Fragment() {
         binding.mvExplanation.text = Html.fromHtml(question?.discussion?.get(0)?.discussionText, flags, { source ->
             Glide.with(requireActivity())
                 .load(source.replace(""""""", ""))
+                .override(1000,700)
                 .into(binding.ivExplanation)
             null
         }, null).toString()

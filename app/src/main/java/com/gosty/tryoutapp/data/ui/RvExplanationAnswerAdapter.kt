@@ -8,6 +8,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gosty.tryoutapp.R
@@ -44,12 +45,24 @@ class RvExplanationAnswerAdapter(
 
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
 
+        holder.binding.mvAnswer.isVisible = true
         holder.binding.mvAnswer.text = Html.fromHtml(currentItem?.selectionText, flags, { source ->
             Glide.with(context)
                 .load(source.replace(""""""", ""))
                 .into(holder.binding.ivAnswer)
             null
         }, null).toString()
+
+        for (i in answer?.answers!!){
+            if (i.questionId == currentItem?.questionId){
+                if (currentItem?.selectionText?.isEmpty() == true){
+                    holder.binding.mvAnswer.isVisible = false
+                    Glide.with(context)
+                        .load(currentItem.image)
+                        .into(holder.binding.ivAnswer)
+                }
+            }
+        }
 
         for (i in answer?.answers!!){
             if (i.questionId == currentItem?.questionId){
