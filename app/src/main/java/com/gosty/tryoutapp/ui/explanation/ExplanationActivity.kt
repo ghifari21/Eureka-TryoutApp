@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
@@ -135,8 +136,9 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                         }
                     })
                 }
-                else -> {
+                is Result.Error -> {
                     multiStateView.viewState = MultiStateView.ViewState.ERROR
+                    Toast.makeText(this@ExplanationActivity, it.error, Toast.LENGTH_SHORT).show()
                 }
             }
         }

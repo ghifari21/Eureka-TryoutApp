@@ -3,6 +3,7 @@ package com.gosty.tryoutapp.ui.tryout.choice
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.gosty.tryoutapp.R
@@ -58,8 +59,9 @@ class ChoiceActivity : AppCompatActivity() {
                 }
 
                 is Result.Error -> {
-                    binding.stateView.viewState = MultiStateView.ViewState.LOADING
-                    val error = binding.stateView.getView(MultiStateView.ViewState.EMPTY)
+                    binding.stateView.viewState = MultiStateView.ViewState.ERROR
+                    Toast.makeText(this@ChoiceActivity, result.error, Toast.LENGTH_SHORT).show()
+                    val error = binding.stateView.getView(MultiStateView.ViewState.ERROR)
                     if (error != null) {
                         val btn: Button = error.findViewById(R.id.btnRefreshProblem)
                         btn.setOnClickListener {

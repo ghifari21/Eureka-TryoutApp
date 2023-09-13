@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -111,8 +112,9 @@ class ProfileFragment : Fragment(), MultiStateView.StateListener {
                         multiStateView.viewState = MultiStateView.ViewState.ERROR
                     }
                 }
-                else -> {
+                is Result.Error -> {
                     multiStateView.viewState = MultiStateView.ViewState.ERROR
+                    Toast.makeText(requireActivity(), result.error, Toast.LENGTH_SHORT).show()
                 }
             }
         }

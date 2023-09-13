@@ -1,5 +1,6 @@
 package com.gosty.tryoutapp.di
 
+import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -13,6 +14,7 @@ import com.gosty.tryoutapp.data.repositories.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -79,8 +81,9 @@ object AppModule {
         apiService: ApiService,
         db: FirebaseDatabase,
         auth: FirebaseAuth,
-        crashlytics: FirebaseCrashlytics
-    ): NumerationRepository = NumerationRepositoryImpl(apiService, db, auth, crashlytics)
+        crashlytics: FirebaseCrashlytics,
+        @ApplicationContext context: Context
+    ): NumerationRepository = NumerationRepositoryImpl(apiService, db, auth, crashlytics, context)
 
     @Provides
     @Singleton

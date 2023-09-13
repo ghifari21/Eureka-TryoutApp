@@ -62,11 +62,11 @@ class EssayFragment : Fragment() {
             if (!hasFocus && binding?.etEssay?.text.toString().trim() != "") {
                 val essay = binding?.etEssay?.text.toString().trim().replace(".", ",")
                 val shortAnswerFirstRange =
-                    question?.shortAnswer!![0]!!.firstRange
+                    question?.shortAnswer!![0]!!.firstRange?.replace(".", ",")
                 val shortAnswerSecondRange =
-                    question.shortAnswer[0]!!.secondRange
+                    question.shortAnswer[0]!!.secondRange?.replace(".", ",")
                 val shortAnswer =
-                    question.shortAnswer[0]!!.shortAnswerText
+                    question.shortAnswer[0]!!.shortAnswerText?.replace(".", ",")
 
                 val firstRange = if (shortAnswerFirstRange!! > shortAnswerSecondRange!!) {
                     shortAnswerFirstRange

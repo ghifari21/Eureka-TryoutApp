@@ -1,5 +1,8 @@
 package com.gosty.tryoutapp.data.repositories
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,17 +28,20 @@ class NumerationRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val db: FirebaseDatabase,
     private val auth: FirebaseAuth,
-    private val crashlytics: FirebaseCrashlytics
+    private val crashlytics: FirebaseCrashlytics,
+    private val context: Context
 ) : NumerationRepository {
     override fun getAllNumerationTryouts(): LiveData<Result<List<SubjectModel>>> = liveData {
         emit(Result.Loading)
         val subjectList = MutableLiveData<List<SubjectModel>>()
         try {
             val response = apiService.getAllNumerationTryouts()
-            if (response != null) {
+            if (response.code == 200) {
                 subjectList.value = response.data?.map {
                     DataMapper.mapDataItemResponseToSubjectModel(it)
                 }
+            } else {
+                emit(Result.Error("Code: ${response.code} ${response.message}"))
             }
         } catch (e: Exception) {
             crashlytics.log(e.message.toString())
@@ -52,25 +58,28 @@ class NumerationRepositoryImpl @Inject constructor(
     *   @author Andi
     *   @since September 8th, 2023
     * */
-    override fun getAllNumerationTryoutsForExplanation(): LiveData<Result<List<SubjectModel>>> = liveData {
-        emit(Result.Loading)
-        val subjectList = MutableLiveData<List<SubjectModel>>()
-        try {
-            val response = apiService.getAllNumerationTryouts()
-            if (response != null) {
-                subjectList.value = response.data?.map {
-                    DataMapper.mapDataItemResponseToSubjectModel(it)
+    override fun getAllNumerationTryoutsForExplanation(): LiveData<Result<List<SubjectModel>>> =
+        liveData {
+            emit(Result.Loading)
+            val subjectList = MutableLiveData<List<SubjectModel>>()
+            try {
+                val response = apiService.getAllNumerationTryouts()
+                if (response.code == 200) {
+                    subjectList.value = response.data?.map {
+                        DataMapper.mapDataItemResponseToSubjectModel(it)
+                    }
+                } else {
+                    emit(Result.Error("Code: ${response.code} ${response.message}"))
                 }
+            } catch (e: Exception) {
+                crashlytics.log(e.message.toString())
+                emit(Result.Error(e.message.toString()))
             }
-        } catch (e: Exception) {
-            crashlytics.log(e.message.toString())
-            emit(Result.Error(e.message.toString()))
+            val data: LiveData<Result<List<SubjectModel>>> = subjectList.map {
+                Result.Success(it)
+            }
+            emitSource(data)
         }
-        val data: LiveData<Result<List<SubjectModel>>> = subjectList.map {
-            Result.Success(it)
-        }
-        emitSource(data)
-    }
 
     override fun postUserAnswer(answerModel: AnswerModel) {
         val userId = auth.currentUser?.uid
@@ -94,19 +103,27 @@ class NumerationRepositoryImpl @Inject constructor(
 
         result.value = Result.Loading
 
-        ref.child(userId!!).orderByChild("dateTime").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val data = snapshot.children.map {
-                    it.getValue(ScoreModel::class.java)!!
-                }
-                result.value = Result.Success(data)
-            }
+        if (isInternetAvailable()) {
+            ref.child(userId!!).orderByChild("dateTime")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        Log.i("FIREBASE ERROR", "onDataChange: ")
+                        val data = snapshot.children.map {
+                            it.getValue(ScoreModel::class.java)!!
+                        }
+                        result.value = Result.Success(data)
+                    }
 
-            override fun onCancelled(error: DatabaseError) {
-                result.value = Result.Error(error.message)
-                crashlytics.log(error.message)
-            }
-        })
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.i("FIREBASE ERROR", error.message)
+                        result.value = Result.Error(error.message)
+                        crashlytics.log(error.message)
+                    }
+                })
+        } else {
+            result.value = Result.Error("Connection Error")
+        }
+
         return result
     }
 
@@ -116,19 +133,23 @@ class NumerationRepositoryImpl @Inject constructor(
         val ref = db.reference.child(BuildConfig.ANSWER_REF)
 
         result.value = Result.Loading
-        ref.child(userId!!).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val data = snapshot.children.map {
-                    it.getValue(AnswerModel::class.java)!!
+        if (isInternetAvailable()) {
+            ref.child(userId!!).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val data = snapshot.children.map {
+                        it.getValue(AnswerModel::class.java)!!
+                    }
+                    result.value = Result.Success(data)
                 }
-                result.value = Result.Success(data)
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                result.value = Result.Error(error.message)
-                crashlytics.log(error.message)
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    result.value = Result.Error(error.message)
+                    crashlytics.log(error.message)
+                }
+            })
+        } else {
+            result.value = Result.Error("Connection Error")
+        }
 
         return result
     }
@@ -142,7 +163,7 @@ class NumerationRepositoryImpl @Inject constructor(
                 crashlytics.log(it.message.toString())
             }
     }
-    
+
     override fun postUserScore(score: ScoreModel) {
         val userId = auth.currentUser?.uid
         val ref = db.reference.child(BuildConfig.USER_REF)
@@ -151,5 +172,11 @@ class NumerationRepositoryImpl @Inject constructor(
                 Log.e("POST SCORE", it.message.toString())
                 crashlytics.log(it.message.toString())
             }
+    }
+
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
     }
 }
