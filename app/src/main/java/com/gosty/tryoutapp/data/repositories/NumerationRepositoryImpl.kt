@@ -20,8 +20,13 @@ import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.data.models.SubjectModel
 import com.gosty.tryoutapp.data.models.TryoutModel
 import com.gosty.tryoutapp.data.remote.network.ApiService
+import com.gosty.tryoutapp.data.remote.responses.NumerationResponse
 import com.gosty.tryoutapp.utils.DataMapper
 import com.gosty.tryoutapp.utils.Result
+import com.gosty.tryoutapp.utils.Utility
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class NumerationRepositoryImpl @Inject constructor(
@@ -31,26 +36,37 @@ class NumerationRepositoryImpl @Inject constructor(
     private val crashlytics: FirebaseCrashlytics,
     private val context: Context
 ) : NumerationRepository {
-    override fun getAllNumerationTryouts(): LiveData<Result<List<SubjectModel>>> = liveData {
-        emit(Result.Loading)
-        val subjectList = MutableLiveData<List<SubjectModel>>()
-        try {
-            val response = apiService.getAllNumerationTryouts()
-            if (response.code == 200) {
-                subjectList.value = response.data?.map {
-                    DataMapper.mapDataItemResponseToSubjectModel(it)
+    override fun getAllNumerationTryouts(): LiveData<Result<List<SubjectModel>>> {
+        val result = MutableLiveData<Result<List<SubjectModel>>>()
+        result.value = Result.Loading
+
+        val client = apiService.getAllNumerationTryouts()
+        client.enqueue(object : Callback<NumerationResponse> {
+            override fun onResponse(
+                call: Call<NumerationResponse>,
+                response: Response<NumerationResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        result.value = Result.Success(
+                            responseBody.data?.map {
+                                DataMapper.mapDataItemResponseToSubjectModel(it)
+                            }!!
+                        )
+                    }
+                } else {
+                    result.value =
+                        Result.Error("Code ${response.code()} ${Utility.getErrorMessage(response.code())}")
                 }
-            } else {
-                emit(Result.Error("Code: ${response.code} ${response.message}"))
             }
-        } catch (e: Exception) {
-            crashlytics.log(e.message.toString())
-            emit(Result.Error(e.message.toString()))
-        }
-        val data: LiveData<Result<List<SubjectModel>>> = subjectList.map {
-            Result.Success(it)
-        }
-        emitSource(data)
+
+            override fun onFailure(call: Call<NumerationResponse>, t: Throwable) {
+                result.value = Result.Error(t.message.toString())
+            }
+        })
+
+        return result
     }
 
     /*
@@ -58,28 +74,38 @@ class NumerationRepositoryImpl @Inject constructor(
     *   @author Andi
     *   @since September 8th, 2023
     * */
-    override fun getAllNumerationTryoutsForExplanation(): LiveData<Result<List<SubjectModel>>> =
-        liveData {
-            emit(Result.Loading)
-            val subjectList = MutableLiveData<List<SubjectModel>>()
-            try {
-                val response = apiService.getAllNumerationTryouts()
-                if (response.code == 200) {
-                    subjectList.value = response.data?.map {
-                        DataMapper.mapDataItemResponseToSubjectModel(it)
+    override fun getAllNumerationTryoutsForExplanation(): LiveData<Result<List<SubjectModel>>> {
+        val result = MutableLiveData<Result<List<SubjectModel>>>()
+        result.value = Result.Loading
+
+        val client = apiService.getAllNumerationTryouts()
+        client.enqueue(object : Callback<NumerationResponse> {
+            override fun onResponse(
+                call: Call<NumerationResponse>,
+                response: Response<NumerationResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        result.value = Result.Success(
+                            responseBody.data?.map {
+                                DataMapper.mapDataItemResponseToSubjectModel(it)
+                            }!!
+                        )
                     }
                 } else {
-                    emit(Result.Error("Code: ${response.code} ${response.message}"))
+                    result.value =
+                        Result.Error("Code ${response.code()}: ${Utility.getErrorMessage(response.code())}")
                 }
-            } catch (e: Exception) {
-                crashlytics.log(e.message.toString())
-                emit(Result.Error(e.message.toString()))
             }
-            val data: LiveData<Result<List<SubjectModel>>> = subjectList.map {
-                Result.Success(it)
+
+            override fun onFailure(call: Call<NumerationResponse>, t: Throwable) {
+                result.value = Result.Error(t.message.toString())
             }
-            emitSource(data)
-        }
+        })
+
+        return result
+    }
 
     override fun postUserAnswer(answerModel: AnswerModel) {
         val userId = auth.currentUser?.uid
@@ -175,7 +201,8 @@ class NumerationRepositoryImpl @Inject constructor(
     }
 
     private fun isInternetAvailable(): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetworkInfo
         return activeNetwork?.isConnectedOrConnecting == true
     }
