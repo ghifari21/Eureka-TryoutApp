@@ -10,7 +10,7 @@ class ProfileViewModel @Inject constructor(
     private val numerationRepository: NumerationRepository
 ) : ViewModel() {
 
-    /*
+    /***
     *   this method is to get user's score data for profile feature
     *   @author Andi
     *   @since September 11th, 2023

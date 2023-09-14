@@ -69,6 +69,11 @@ class AuthActivity : AppCompatActivity() {
         resultLauncher.launch(signInIntent)
     }
 
+    /***
+    *  this method is to get the token and processing login of the user with firebase
+     *  @author Ghifari
+     *  @since September 14th, 2023
+    * */
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         viewModel.signIn(credential).observe(this@AuthActivity) {

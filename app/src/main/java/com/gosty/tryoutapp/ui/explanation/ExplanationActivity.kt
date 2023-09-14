@@ -52,7 +52,7 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
         }
     }
 
-    /*
+    /***
     *   this method is to:
     *   1. check the tryout category, "Data dan Ketidakpastian" or "Geometri dan Pengukuran"
     *   @author Andi
@@ -66,7 +66,7 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
         }
     }
 
-    /*
+    /***
         this method is to:
         1. set view pager adapter
         2. user unable to swipe explanation fragment instead of click previous-next as a navigation button
@@ -75,6 +75,7 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
         5. setup view pager
         6. setup tab layout
         7. setup custom view of tab layout
+        @param tryoutIndex to get the index of tryout, if 30 it is Data dan Ketidakpastian, else (31) it is Geometri dan Pengukuran
         @author Andi
         @since September 6th, 2023
         Updated Septmber 11th, 2023 by Andi

@@ -57,7 +57,7 @@ class ScoreFragment : Fragment(), MultiStateView.StateListener {
     }
 
 
-    /*
+    /***
     *   this method is to:
     *   1. implement multi state view
     *   2. implement view model

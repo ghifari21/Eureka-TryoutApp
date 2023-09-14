@@ -64,7 +64,7 @@ class ProfileFragment : Fragment(), MultiStateView.StateListener {
         }
     }
 
-    /*
+    /***
         this method is to :
         1. implement multi state view
         2. get user data auth
@@ -121,7 +121,7 @@ class ProfileFragment : Fragment(), MultiStateView.StateListener {
 
     }
 
-    /*
+    /***
     *   this method is to show alert dialog for logout confirmation from the user.
     *   @author Andi
     *   @since September 5th, 2023

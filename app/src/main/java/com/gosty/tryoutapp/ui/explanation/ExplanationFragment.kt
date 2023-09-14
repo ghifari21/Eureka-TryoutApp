@@ -139,6 +139,11 @@ class ExplanationFragment : Fragment() {
         imageHandler(false, imageListExplanation)
     }
 
+    /***
+    *    this method is to get the list of images and handling them after that show them to image view
+     *    @author Andi
+     *    @since September 14th, 2023
+    * */
     private fun imageHandler(question: Boolean, imageList: List<String>) {
         for (i in imageList) {
             val imageView = ImageView(requireActivity())
