@@ -15,7 +15,11 @@ class UserRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
     private val crashlytics: FirebaseCrashlytics
 ) : UserRepository {
-
+    /***
+     * This method to let user sign in using their Google Account.
+     * @author Ghifari Octaverin
+     * @since Sept 4th, 2023
+     */
     override fun signIn(credential: AuthCredential): LiveData<Result<String>> {
         val result = MediatorLiveData<Result<String>>()
         result.value = Result.Loading

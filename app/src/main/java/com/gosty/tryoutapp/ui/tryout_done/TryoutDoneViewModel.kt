@@ -16,7 +16,14 @@ class TryoutDoneViewModel @Inject constructor(
 ) : ViewModel() {
     private val _answers = MediatorLiveData<Result<List<AnswerModel>>>()
     val answers: LiveData<Result<List<AnswerModel>>> get() = _answers
+    private val _sending = MediatorLiveData<Result<String>>()
+    val sending: LiveData<Result<String>> get() = _sending
 
+    /***
+     * This method to get all user answers from realtime database.
+     * @author Ghifari Octaverin
+     * @since Sept 13th, 2023
+     */
     fun getAllUserAnswer() {
         val result = numerationRepository.getAllUserAnswer()
         _answers.addSource(result) {
@@ -24,5 +31,17 @@ class TryoutDoneViewModel @Inject constructor(
         }
     }
 
-    fun postScore(score: ScoreModel) = numerationRepository.postUserScore(score)
+    /***
+     * This method to send user score to realtime database.
+     * @param score variable that contain score user
+     * @author Ghifari Octaverin
+     * @since Sept 11th, 2023
+     * Updated Sept 14th, 2023 by Ghifari Octaverin
+     */
+    fun postScore(score: ScoreModel) {
+        val data = numerationRepository.postUserScore(score)
+        _sending.addSource(data) {
+            _sending.postValue(it)
+        }
+    }
 }

@@ -27,9 +27,6 @@ class RvExplanationAnswerAdapter(
     var totalOption: Int,
     var context: Context,
 ) : RecyclerView.Adapter<RvExplanationAnswerAdapter.MyViewHolder>() {
-
-    private lateinit var abc : String
-
     inner class MyViewHolder(val binding : ItemAnswerBinding, val context: Context) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -46,17 +43,7 @@ class RvExplanationAnswerAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = option[position]
 
-        when(position){
-            0 -> abc = "A"
-            1 -> abc = "B"
-            2 -> abc = "C"
-            3 -> abc = "D"
-            4 -> abc = "E"
-            5 -> abc = "F"
-            6 -> abc = "G"
-        }
-
-        holder.binding.tvOpsiABC.text = "$abc. "
+        holder.binding.tvOpsiABC.text = "${(65 + position).toChar()}. "
 
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
 

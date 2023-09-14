@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +20,7 @@ import com.gosty.tryoutapp.data.models.AnswerModel
 import com.gosty.tryoutapp.data.models.QuestionModel
 import com.gosty.tryoutapp.data.ui.TabPagerProblemAdapter
 import com.gosty.tryoutapp.databinding.FragmentMultipleChoiceBinding
+import com.gosty.tryoutapp.utils.Result
 import com.gosty.tryoutapp.utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.kexanie.library.MathView
@@ -60,8 +62,16 @@ class MultipleChoiceFragment : Fragment() {
         answerHandler(question, currentItem)
 
         binding?.tvTotalProblem?.text = activity?.getString(R.string.number_of_problem, pos, total)
+
+        errorHandler()
     }
 
+    /***
+     * This method is to handle multiple image from question.
+     * @param imageList contain list of image urls
+     * @author Ghifari Octaverin
+     * @since Sept 11th, 2023
+     */
     private fun imageHandler(imageList: List<String>) {
         for (i in imageList) {
             val imageView = ImageView(requireActivity())
@@ -81,7 +91,15 @@ class MultipleChoiceFragment : Fragment() {
         }
     }
 
+    /***
+     * This method is to handle answers that user can pick.
+     * @param question contain question model
+     * @param currentItem variable that indicate index of current page.
+     * @author Ghifari Octaverin
+     * @since Sept 11th, 2023
+     */
     private fun answerHandler(question: QuestionModel?, currentItem: Int?) {
+        var choice = 'A'
         for (i in question?.selection!!) {
             val linearLayout = LinearLayout(requireActivity())
             val linearLayoutParams =
@@ -105,6 +123,19 @@ class MultipleChoiceFragment : Fragment() {
             ivParams.setMargins(0, 0, 16, 0)
             imageView.layoutParams = ivParams
             linearLayout.addView(imageView)
+
+            val textView = TextView(requireActivity())
+            val tvLayout = LinearLayout.LayoutParams(
+                ViewGroup.MarginLayoutParams.WRAP_CONTENT,
+                ViewGroup.MarginLayoutParams.WRAP_CONTENT
+            )
+            tvLayout.gravity = Gravity.CENTER_VERTICAL
+            tvLayout.setMargins(0, 0, 16, 0)
+            textView.layoutParams = tvLayout
+            textView.setTextColor(requireActivity().getColor(R.color.black))
+            textView.text = "$choice."
+            choice++
+            linearLayout.addView(textView)
 
             if (i?.selectionText != "") {
                 val mathView = MathView(requireActivity(), null)
@@ -184,6 +215,31 @@ class MultipleChoiceFragment : Fragment() {
         }
     }
 
+    /***
+     * This method is to handle error message.
+     * @author Ghifari Octaverin
+     * @since Sept 14th, 2023
+     */
+    private fun errorHandler() {
+        viewModel.result.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Error -> Toast.makeText(
+                    requireActivity(),
+                    "Error, your answer may not saved: ${result.error}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                else -> {}
+            }
+        }
+    }
+
+    /***
+     * This method to handle tab layout background as indicator user already answered the question.
+     * @param currentItem variable that indicate index of current page.
+     * @author Ghifari Octaverin
+     * @since Sept 11th, 2023
+     */
     private fun tabLayoutView(currentItem: Int) {
         val tabView =
             LayoutInflater.from(requireActivity()).inflate(R.layout.tab_title, null) as TextView

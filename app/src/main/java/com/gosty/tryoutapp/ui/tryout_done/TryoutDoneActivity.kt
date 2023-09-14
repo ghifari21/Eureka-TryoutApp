@@ -39,8 +39,18 @@ class TryoutDoneActivity : AppCompatActivity() {
         val totalQuestion = intent.getIntExtra(EXTRA_TOTAL_QUESTIONS, 0)
 
         calculateAnswers(data, time, totalQuestion)
+
+        errorHandler()
     }
 
+    /***
+     * This method is to calculate user score and store it in realtime database.
+     * @param data variable that contain tryout category
+     * @param time variable that contain total time that user needed to finish the tryout
+     * @param totalQuestion variable that contain total of question
+     * @author Ghifari Octaverin
+     * @since Sept 14th, 2023
+     */
     private fun calculateAnswers(data: String?, time: Long, totalQuestion: Int) {
         viewModel.answers.observe(this@TryoutDoneActivity) { result ->
             when (result) {
@@ -100,6 +110,25 @@ class TryoutDoneActivity : AppCompatActivity() {
         binding.refreshLayout.setOnRefreshListener {
             viewModel.getAllUserAnswer()
             binding.refreshLayout.isRefreshing = false
+        }
+    }
+
+    /***
+     * This method is to handle error message.
+     * @author Ghifari Octaverin
+     * @since Sept 14th, 2023
+     */
+    private fun errorHandler() {
+        viewModel.sending.observe(this@TryoutDoneActivity) { result ->
+            when (result) {
+                is Result.Error -> Toast.makeText(
+                    this@TryoutDoneActivity,
+                    "Error, your score may not saved: ${result.error}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                else -> {}
+            }
         }
     }
 
