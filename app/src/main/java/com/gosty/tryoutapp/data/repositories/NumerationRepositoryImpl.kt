@@ -2,12 +2,9 @@ package com.gosty.tryoutapp.data.repositories
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.database.DataSnapshot
@@ -18,12 +15,10 @@ import com.gosty.tryoutapp.BuildConfig
 import com.gosty.tryoutapp.data.models.AnswerModel
 import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.data.models.SubjectModel
-import com.gosty.tryoutapp.data.models.TryoutModel
 import com.gosty.tryoutapp.data.remote.network.ApiService
 import com.gosty.tryoutapp.data.remote.responses.NumerationResponse
 import com.gosty.tryoutapp.utils.DataMapper
 import com.gosty.tryoutapp.utils.Result
-import com.gosty.tryoutapp.utils.Utility
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,8 +51,9 @@ class NumerationRepositoryImpl @Inject constructor(
                         )
                     }
                 } else {
+                    response.message()
                     result.value =
-                        Result.Error("Code ${response.code()} ${Utility.getErrorMessage(response.code())}")
+                        Result.Error("Code ${response.code()}: ${response.message()}")
                 }
             }
 
@@ -95,7 +91,7 @@ class NumerationRepositoryImpl @Inject constructor(
                     }
                 } else {
                     result.value =
-                        Result.Error("Code ${response.code()}: ${Utility.getErrorMessage(response.code())}")
+                        Result.Error("Code ${response.code()}: ${response.message()}")
                 }
             }
 
