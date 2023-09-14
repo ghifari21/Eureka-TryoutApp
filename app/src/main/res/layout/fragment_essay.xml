@@ -78,7 +78,7 @@
                     android:gravity="top|start"
                     android:hint="@string/type_here"
                     android:importantForAutofill="no"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxHeight="150dp"
                     android:maxLines="7"
                     android:minHeight="150dp"
