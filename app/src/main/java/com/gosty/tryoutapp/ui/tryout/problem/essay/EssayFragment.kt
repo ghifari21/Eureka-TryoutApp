@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -19,6 +20,7 @@ import com.gosty.tryoutapp.data.models.AnswerModel
 import com.gosty.tryoutapp.data.models.QuestionModel
 import com.gosty.tryoutapp.data.ui.TabPagerProblemAdapter
 import com.gosty.tryoutapp.databinding.FragmentEssayBinding
+import com.gosty.tryoutapp.utils.Result
 import com.gosty.tryoutapp.utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,6 +49,7 @@ class EssayFragment : Fragment() {
 
         tabLayout = requireActivity().findViewById(R.id.tab_layout)
 
+        // Handling image in question.
         val imageList = mutableListOf<String>()
         val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
         binding?.mvQuestion?.text = Html.fromHtml(question?.questionText, flags, { source ->
@@ -59,6 +62,7 @@ class EssayFragment : Fragment() {
         binding?.tvTotalProblem?.text = activity?.getString(R.string.number_of_problem, pos, total)
 
         binding?.etEssay?.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            // Send user answer when edit test lose the focus.
             if (!hasFocus && binding?.etEssay?.text.toString().trim() != "") {
                 val essay = binding?.etEssay?.text.toString().trim().replace(".", ",")
                 val shortAnswerFirstRange =
@@ -92,8 +96,35 @@ class EssayFragment : Fragment() {
                 tabLayoutView(currentItem!!)
             }
         }
+
+        errorHandler()
     }
 
+    /***
+     * This method is to handle error message.
+     * @author Ghifari Octaverin
+     * @since Sept 14th, 2023
+     */
+    private fun errorHandler() {
+        viewModel.result.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Error -> Toast.makeText(
+                    requireActivity(),
+                    "Error, your answer may not saved: ${result.error}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                else -> {}
+            }
+        }
+    }
+
+    /***
+     * This method is to handle multiple image from question.
+     * @param imageList contain list of image urls
+     * @author Ghifari Octaverin
+     * @since Sept 11th, 2023
+     */
     private fun imageHandler(imageList: List<String>) {
         for (i in imageList) {
             val imageView = ImageView(requireActivity())
@@ -113,6 +144,12 @@ class EssayFragment : Fragment() {
         }
     }
 
+    /***
+     * This method to handle tab layout background as indicator user already answered the question.
+     * @param currentItem variable that indicate index of current page.
+     * @author Ghifari Octaverin
+     * @since Sept 11th, 2023
+     */
     private fun tabLayoutView(currentItem: Int) {
         val tabView =
             LayoutInflater.from(requireActivity()).inflate(R.layout.tab_title, null) as TextView

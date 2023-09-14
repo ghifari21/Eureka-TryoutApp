@@ -2,11 +2,9 @@ package com.gosty.tryoutapp.data.ui
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.ScoreModel
 import com.gosty.tryoutapp.databinding.ItemScoreBinding
 import com.gosty.tryoutapp.ui.explanation.ExplanationActivity
@@ -35,7 +33,7 @@ class   ScoreRecyclerViewAdapter(private var myScoreList : List<ScoreModel>) : R
             holder.binding.tvTestKe.text = "Test Ke-${myScoreList.size - position}"
         }
 
-        holder.binding.tvDurasi.text = Converter.milisecondToMinuteAndSecond(currentItem.totalTime!!)
+        holder.binding.tvDurasi.text = Converter.millisecondToMinuteAndSecond(currentItem.totalTime!!)
         holder.binding.tvBenar.text = "Benar : ${currentItem.correctAnswer}"
         holder.binding.tvSalah.text = "Salah : ${currentItem.wrongAnswer}"
         holder.binding.tvKosong.text = "Kosong : ${currentItem.notAnswered}"

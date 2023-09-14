@@ -18,6 +18,12 @@ class ChoiceViewModel @Inject constructor(
     private val _tryouts = MediatorLiveData<Result<List<SubjectModel>>>()
     val tryouts: LiveData<Result<List<SubjectModel>>> get() = _tryouts
 
+    /***
+     * This method is to get all tryout from API
+     * @author Ghifari Octaverin
+     * @since Sept 6th, 2023
+     * Updated Sept 11th, 2023 by Ghifari Octaverin
+     */
     fun getSubjects() {
         val result = numerationRepository.getAllNumerationTryouts()
         _tryouts.addSource(result) {

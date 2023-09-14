@@ -34,6 +34,12 @@ class ChoiceActivity : AppCompatActivity() {
         initView()
     }
 
+    /***
+     * This method is to initialize all view.
+     * @author Ghifari Octaverin
+     * @since Sept 5th, 2023
+     * Updated Sept 11th, 2023 by Ghifari Octaverin
+     */
     private fun initView() {
         viewModel.tryouts.observe(this@ChoiceActivity) { result ->
             when (result) {

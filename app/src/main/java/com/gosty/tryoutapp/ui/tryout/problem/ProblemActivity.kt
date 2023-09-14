@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -20,6 +21,7 @@ import com.gosty.tryoutapp.data.ui.TabPagerProblemAdapter
 import com.gosty.tryoutapp.databinding.ActivityProblemBinding
 import com.gosty.tryoutapp.ui.auth.AuthActivity
 import com.gosty.tryoutapp.ui.tryout_done.TryoutDoneActivity
+import com.gosty.tryoutapp.utils.Result
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
@@ -44,8 +46,17 @@ class ProblemActivity : AppCompatActivity() {
         setupTimer(data)
 
         initView(data, totalQuestion)
+
+        errorHandler()
     }
 
+    /***
+     * This method is to setup the count down timer.
+     * @param data variable that contain tryout model
+     * @author Ghifari Octaverin
+     * @since Sept 11th, 2023
+     * Updated Sept 13th, 2023 by Andi
+     */
     private fun setupTimer(data: TryoutModel?) {
         timer = object : CountDownTimer(TIME_MILLISECONDS, TIME_ELAPSE) {
             override fun onTick(remaining: Long) {
@@ -64,14 +75,14 @@ class ProblemActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    *   this method is to show alert dialog if there is remaining time related to the test
-    *   @param data refers to the TryOutModel
-    *   @param activity refers to the activity context to build an alert dialog
-    *   @param totalQuestion to count the total of the question
-    *   @author Andi
-    *   @since September 12th
-    * */
+    /***
+     *   this method is to show alert dialog if there is remaining time related to the test
+     *   @param data refers to the TryOutModel
+     *   @param activity refers to the activity context to build an alert dialog
+     *   @param totalQuestion to count the total of the question
+     *   @author Andi
+     *   @since September 12th
+     */
     private fun showConfirmSubmitDialog(data: TryoutModel?, activity: Activity, totalQuestion: Int){
         val confirmSubmitDialog = AlertDialog.Builder(activity)
             .setTitle("Waktu masih ada nih, mau cek kembali dulu atau submit ?")
@@ -92,6 +103,14 @@ class ProblemActivity : AppCompatActivity() {
         }
     }
 
+    /***
+     * This method is to initialize all view.
+     * @param data variable that contain tryout model
+     * @param totalQuestion variable that contain total question that this tryout have
+     * @author Ghifari Octaverin
+     * @since Sept 5th, 2023
+     * Updated Sept 13th, 2023 by Andi
+     */
     private fun initView(data: TryoutModel?, totalQuestion: Int?) {
         viewModel.deleteAllUserAnswer()
 
@@ -138,12 +157,12 @@ class ProblemActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    *   this method is to show alert dialog if the time's up
-    *   @param data refers to the TryOutModel
-    *   @author Andi
-    *   @since September 12th
-    * */
+    /***
+     *   this method is to show alert dialog if the time's up
+     *   @param data refers to the TryOutModel
+     *   @author Andi
+     *   @since September 12th
+     */
     private fun showTimesUpDialog(data: TryoutModel?){
         val timesUpDialog = AlertDialog.Builder(this)
             .setTitle("Yah, waktu pengerjannya sudah selesai nih :(")
@@ -160,6 +179,25 @@ class ProblemActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
             timesUpDialog.cancel()
+        }
+    }
+
+    /***
+     * This method is to handle error message.
+     * @author Ghifari Octaverin
+     * @since Sept 14, 2023
+     */
+    private fun errorHandler() {
+        viewModel.result.observe(this@ProblemActivity) { result ->
+            when (result) {
+                is Result.Error -> Toast.makeText(
+                    this@ProblemActivity,
+                    "Error, your answer may not saved: ${result.error}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                else -> {}
+            }
         }
     }
 
