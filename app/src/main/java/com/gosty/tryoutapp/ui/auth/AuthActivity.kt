@@ -59,6 +59,11 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
+    /***
+    *   this method is to processing sign in of the user where the token is taken from resultLauncher
+     *   @author Ghifari
+     *   @since September 14th, 2023
+    * */
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         resultLauncher.launch(signInIntent)

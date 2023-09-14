@@ -10,5 +10,10 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
+    /***
+    *   this method is to processing sign in of the user by automatically get the list of user's account
+     *   @author Ghifari
+     *   @since September 14th, 2023
+    * */
     fun signIn(credential: AuthCredential) = userRepository.signIn(credential)
 }
