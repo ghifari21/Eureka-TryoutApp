@@ -99,17 +99,20 @@ class ExplanationActivity : AppCompatActivity(), MultiStateView.StateListener {
                         val tabView =
                             LayoutInflater.from(this).inflate(R.layout.tab_title_explanation, null) as TextView
                         val getQuestionId = question?.get(position)?.questionId
-                        for (i in dataAnswer.answers!!){
-                            if (getQuestionId == i.questionId){
-                                if (i.correct == true){
-                                    tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_green_full_radius)
-                                    tabView.setTextColor(this.getColor(R.color.white))
-                                } else {
-                                    tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_red_full_radius)
-                                    tabView.setTextColor(this.getColor(R.color.white))
+                        if (dataAnswer.answers != null){
+                            for (i in dataAnswer.answers!!){
+                                if (getQuestionId == i.questionId){
+                                    if (i.correct == true){
+                                        tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_green_full_radius)
+                                        tabView.setTextColor(this.getColor(R.color.white))
+                                    } else {
+                                        tabView.setBackgroundResource(R.drawable.shape_bg_rounded_corner_tab_answered_red_full_radius)
+                                        tabView.setTextColor(this.getColor(R.color.white))
+                                    }
                                 }
                             }
                         }
+
                         tab.customView = tabView
                     }.attach()
 
