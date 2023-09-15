@@ -138,8 +138,8 @@ class ProfileFragment : Fragment(), MultiStateView.StateListener {
         logoutAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             Firebase.auth.signOut()
             val intent = Intent(requireContext(), AuthActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
-            activity?.finish()
         }
     }
 
