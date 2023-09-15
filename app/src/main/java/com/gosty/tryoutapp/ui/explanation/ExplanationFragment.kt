@@ -74,13 +74,17 @@ class ExplanationFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity)
                 setHasFixedSize(true)
             }
-            for (i in score?.answers!!){
-                for (j in question.selectionAnswer!!){
-                    if (i.questionId == j?.questionId){
-                        if (i.answer?.isEmpty() == true){
-                            binding.tvNotAnswerInfo.isVisible = true
-                        } else {
-                            binding.tvNotAnswerInfo.isVisible = false
+            if (score?.answers == null){
+                binding.tvNotAnswerInfo.isVisible = true
+            } else {
+                for (i in score?.answers!!){
+                    for (j in question.selectionAnswer!!){
+                        if (i.questionId == j?.questionId){
+                            if (i.answer?.isEmpty() == true){
+                                binding.tvNotAnswerInfo.isVisible = true
+                            } else {
+                                binding.tvNotAnswerInfo.isVisible = false
+                            }
                         }
                     }
                 }

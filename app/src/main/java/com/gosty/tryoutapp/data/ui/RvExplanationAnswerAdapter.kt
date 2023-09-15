@@ -55,66 +55,99 @@ class RvExplanationAnswerAdapter(
             null
         }, null).toString()
 
-        for (i in answer?.answers!!){
-            if (i.questionId == currentItem?.questionId){
+        if (answer?.answers == null){
+            for (a in selectionAnswer!!){
                 if (currentItem?.selectionText?.isEmpty() == true){
-                    holder.binding.mvAnswer.isVisible = false
-                    Glide.with(context)
-                        .load(currentItem.image)
-                        .into(holder.binding.ivAnswer)
+                    if (currentItem?.image == a?.image){
+                        holder.binding.mvAnswer.isVisible = false
+                        Glide.with(context)
+                            .load(currentItem.image)
+                            .into(holder.binding.ivAnswer)
+                        holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                    } else{
+                        holder.binding.mvAnswer.isVisible = false
+                        Glide.with(context)
+                            .load(currentItem.image)
+                            .into(holder.binding.ivAnswer)
+                    }
                 }
-            } else {
-                for (a in selectionAnswer!!){
+            }
+        } else {
+            for (i in answer?.answers!!){
+                if (i.questionId == currentItem?.questionId){
                     if (currentItem?.selectionText?.isEmpty() == true){
-                        if (currentItem?.image == a?.image){
-                            holder.binding.mvAnswer.isVisible = false
-                            Glide.with(context)
-                                .load(currentItem.image)
-                                .into(holder.binding.ivAnswer)
-                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
-                        } else{
-                            holder.binding.mvAnswer.isVisible = false
-                            Glide.with(context)
-                                .load(currentItem.image)
-                                .into(holder.binding.ivAnswer)
+                        holder.binding.mvAnswer.isVisible = false
+                        Glide.with(context)
+                            .load(currentItem.image)
+                            .into(holder.binding.ivAnswer)
+                    }
+                } else {
+                    for (a in selectionAnswer!!){
+                        if (currentItem?.selectionText?.isEmpty() == true){
+                            if (currentItem?.image == a?.image){
+                                holder.binding.mvAnswer.isVisible = false
+                                Glide.with(context)
+                                    .load(currentItem.image)
+                                    .into(holder.binding.ivAnswer)
+                                holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                            } else{
+                                holder.binding.mvAnswer.isVisible = false
+                                Glide.with(context)
+                                    .load(currentItem.image)
+                                    .into(holder.binding.ivAnswer)
+                            }
                         }
                     }
                 }
             }
         }
 
-        for (i in answer?.answers!!){
-            if (i.questionId == currentItem?.questionId){
-                for (j in i.answer!!){
-                    if (currentItem?.selectionText?.isEmpty() == false){
-                        if (j == currentItem.selectionText){
-                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
-                            for (k in selectionAnswer!!){
-                                if (j == k?.selectionText){
-                                    holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+        if (answer?.answers == null){
+            for (a in selectionAnswer!!){
+                if (currentItem?.selectionText?.isEmpty() == false){
+                    if (currentItem?.selectionText == a?.selectionText){
+                        holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                    }
+                } else {
+                    if (currentItem?.image == a?.image){
+                        holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                    }
+                }
+            }
+        } else {
+            for (i in answer?.answers!!){
+                if (i.questionId == currentItem?.questionId){
+                    for (j in i.answer!!){
+                        if (currentItem?.selectionText?.isEmpty() == false){
+                            if (j == currentItem.selectionText){
+                                holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
+                                for (k in selectionAnswer!!){
+                                    if (j == k?.selectionText){
+                                        holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                                    }
                                 }
                             }
-                        }
-                    } else {
-                        if (j == currentItem?.image){
-                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
-                            for (k in selectionAnswer!!){
-                                if (j == k?.image){
-                                    holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                        } else {
+                            if (j == currentItem?.image){
+                                holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_red_8_full_radius)
+                                for (k in selectionAnswer!!){
+                                    if (j == k?.image){
+                                        holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            } else {
-                for (a in selectionAnswer!!){
-                    if (currentItem?.selectionText?.isEmpty() == false){
-                        if (currentItem?.selectionText == a?.selectionText){
-                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
-                        }
-                    } else {
-                        if (currentItem?.image == a?.image){
-                            holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                } else {
+                    for (a in selectionAnswer!!){
+                        if (currentItem?.selectionText?.isEmpty() == false){
+                            if (currentItem?.selectionText == a?.selectionText){
+                                holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                            }
+                        } else {
+                            if (currentItem?.image == a?.image){
+                                holder.binding.answerBox.setBackgroundResource(R.drawable.shape_bg_rounded_corner_answer_green_8_full_radius)
+                            }
                         }
                     }
                 }
