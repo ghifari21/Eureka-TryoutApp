@@ -1,7 +1,6 @@
 package com.gosty.tryoutapp.ui.tryout.problem.multiplechoice
 
 import android.os.Bundle
-import android.text.Html
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +21,7 @@ import com.gosty.tryoutapp.data.ui.TabPagerProblemAdapter
 import com.gosty.tryoutapp.databinding.FragmentMultipleChoiceBinding
 import com.gosty.tryoutapp.utils.Result
 import com.gosty.tryoutapp.utils.Utility
+import com.gosty.tryoutapp.utils.Utility.resizeImageHtml
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.kexanie.library.MathView
 
@@ -50,45 +50,13 @@ class MultipleChoiceFragment : Fragment() {
 
         tabLayout = requireActivity().findViewById(R.id.tab_layout)
 
-        val imageList = mutableListOf<String>()
-        val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
-        binding?.mvQuestion?.text = Html.fromHtml(question?.questionText, flags, { source ->
-            imageList.add(source.replace("""\""", ""))
-            null
-        }, null).toString()
-
-        imageHandler(imageList)
+        binding?.mvQuestion?.text = question?.questionText?.resizeImageHtml()
 
         answerHandler(question, currentItem)
 
         binding?.tvTotalProblem?.text = activity?.getString(R.string.number_of_problem, pos, total)
 
         errorHandler()
-    }
-
-    /***
-     * This method is to handle multiple image from question.
-     * @param imageList contain list of image urls
-     * @author Ghifari Octaverin
-     * @since Sept 11th, 2023
-     */
-    private fun imageHandler(imageList: List<String>) {
-        for (i in imageList) {
-            val imageView = ImageView(requireActivity())
-
-            Glide.with(requireActivity())
-                .load(i)
-                .placeholder(R.drawable.icon_black_image_placeholder)
-                .error(R.drawable.icon_black_broken_image)
-                .into(imageView)
-
-            val width = 720
-            val height = 480
-            val layoutParams = LinearLayout.LayoutParams(width, height)
-            layoutParams.gravity = Gravity.CENTER
-            imageView.layoutParams = layoutParams
-            binding?.imageContainer?.addView(imageView)
-        }
     }
 
     /***

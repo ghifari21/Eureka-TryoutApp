@@ -53,18 +53,6 @@
                             android:layout_marginTop="6dp"
                             app:engine="MathJax"
                             style="@style/font_14_normal_dark_blue_180B3F"/>
-
-                        <LinearLayout
-                            android:id="@+id/imgContainerQuestion"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:importantForAccessibility="no"
-                            android:orientation="vertical"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/mvQuestionExplanation" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -168,24 +156,8 @@
                             app:layout_constraintRight_toRightOf="parent"
                             android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                             style="@style/font_14_normal_dark_blue_180B3F"/>
-
-                        <LinearLayout
-                            android:id="@+id/imgContainerExplanation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:importantForAccessibility="no"
-                            android:orientation="vertical"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/mvExplanation" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </ScrollView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
