@@ -12,4 +12,16 @@ object Utility {
             .map { allowedChars.random() }
             .joinToString("")
     }
+
+    /***
+     * This method to resize image in html format.
+     * @author Ghifari Octaverin
+     * @since Sept 18th, 2023
+     */
+    fun String.resizeImageHtml(): String {
+        return this.replace(
+            "<img\\s+src=\"(.*?)\"(\\s*/)?\\s*>".toRegex(),
+            "<img src=\"$1\" style=\"max-width: 100%; max-height: 100%; width: auto; height: auto;\">"
+        )
+    }
 }

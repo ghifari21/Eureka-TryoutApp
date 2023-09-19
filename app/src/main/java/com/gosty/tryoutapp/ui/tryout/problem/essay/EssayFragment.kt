@@ -1,19 +1,14 @@
 package com.gosty.tryoutapp.ui.tryout.problem.essay
 
 import android.os.Bundle
-import android.text.Html
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.gosty.tryoutapp.R
 import com.gosty.tryoutapp.data.models.AnswerModel
@@ -22,6 +17,7 @@ import com.gosty.tryoutapp.data.ui.TabPagerProblemAdapter
 import com.gosty.tryoutapp.databinding.FragmentEssayBinding
 import com.gosty.tryoutapp.utils.Result
 import com.gosty.tryoutapp.utils.Utility
+import com.gosty.tryoutapp.utils.Utility.resizeImageHtml
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,14 +46,7 @@ class EssayFragment : Fragment() {
         tabLayout = requireActivity().findViewById(R.id.tab_layout)
 
         // Handling image in question.
-        val imageList = mutableListOf<String>()
-        val flags = Html.FROM_HTML_MODE_COMPACT or Html.FROM_HTML_MODE_LEGACY
-        binding?.mvQuestion?.text = Html.fromHtml(question?.questionText, flags, { source ->
-            imageList.add(source.replace("""\""", ""))
-            null
-        }, null).toString()
-
-        imageHandler(imageList)
+        binding?.mvQuestion?.text = question?.questionText?.resizeImageHtml()
 
         binding?.tvTotalProblem?.text = activity?.getString(R.string.number_of_problem, pos, total)
 
@@ -116,31 +105,6 @@ class EssayFragment : Fragment() {
 
                 else -> {}
             }
-        }
-    }
-
-    /***
-     * This method is to handle multiple image from question.
-     * @param imageList contain list of image urls
-     * @author Ghifari Octaverin
-     * @since Sept 11th, 2023
-     */
-    private fun imageHandler(imageList: List<String>) {
-        for (i in imageList) {
-            val imageView = ImageView(requireActivity())
-
-            Glide.with(requireActivity())
-                .load(i)
-                .placeholder(R.drawable.icon_black_image_placeholder)
-                .error(R.drawable.icon_black_broken_image)
-                .into(imageView)
-
-            val width = 720
-            val height = 480
-            val layoutParams = LinearLayout.LayoutParams(width, height)
-            layoutParams.gravity = Gravity.CENTER
-            imageView.layoutParams = layoutParams
-            binding?.imageContainer?.addView(imageView)
         }
     }
 
